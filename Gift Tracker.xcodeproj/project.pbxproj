@@ -18,13 +18,19 @@
 		4B19F89E178F292E004A0392 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F89D178F292E004A0392 /* Default-568h@2x.png */; };
 		4B19F8A1178F292E004A0392 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F89F178F292E004A0392 /* MainStoryboard_iPhone.storyboard */; };
 		4B19F8A4178F292E004A0392 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F8A2178F292E004A0392 /* MainStoryboard_iPad.storyboard */; };
-		4B19F8A7178F292E004A0392 /* giftMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8A6178F292E004A0392 /* giftMasterViewController.m */; };
-		4B19F8AA178F292E004A0392 /* giftDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8A9178F292E004A0392 /* giftDetailViewController.m */; };
 		4B19F8B2178F292E004A0392 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F8B1178F292E004A0392 /* SenTestingKit.framework */; };
 		4B19F8B3178F292E004A0392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F887178F292E004A0392 /* UIKit.framework */; };
 		4B19F8B4178F292E004A0392 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F889178F292E004A0392 /* Foundation.framework */; };
 		4B19F8BC178F292E004A0392 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F8BA178F292E004A0392 /* InfoPlist.strings */; };
 		4B19F8BF178F292E004A0392 /* Gift_TrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8BE178F292E004A0392 /* Gift_TrackerTests.m */; };
+		4B19F8C9178F2A08004A0392 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F8C8178F2A08004A0392 /* libsqlite3.dylib */; };
+		4B19F8D5178F2A53004A0392 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8CC178F2A53004A0392 /* FMDatabase.m */; };
+		4B19F8D6178F2A53004A0392 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8CE178F2A53004A0392 /* FMDatabaseAdditions.m */; };
+		4B19F8D7178F2A53004A0392 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8D0178F2A53004A0392 /* FMDatabasePool.m */; };
+		4B19F8D8178F2A53004A0392 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8D2178F2A53004A0392 /* FMDatabaseQueue.m */; };
+		4B19F8D9178F2A53004A0392 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8D4178F2A53004A0392 /* FMResultSet.m */; };
+		4B19F8DD178F40A5004A0392 /* gift.db in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F8DC178F40A5004A0392 /* gift.db */; };
+		4B19F8E0178F40D3004A0392 /* giftSourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,16 +59,26 @@
 		4B19F89D178F292E004A0392 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4B19F8A0178F292E004A0392 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		4B19F8A3178F292E004A0392 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		4B19F8A5178F292E004A0392 /* giftMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = giftMasterViewController.h; sourceTree = "<group>"; };
-		4B19F8A6178F292E004A0392 /* giftMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = giftMasterViewController.m; sourceTree = "<group>"; };
-		4B19F8A8178F292E004A0392 /* giftDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = giftDetailViewController.h; sourceTree = "<group>"; };
-		4B19F8A9178F292E004A0392 /* giftDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = giftDetailViewController.m; sourceTree = "<group>"; };
 		4B19F8B0178F292E004A0392 /* Gift TrackerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gift TrackerTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B19F8B1178F292E004A0392 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4B19F8B9178F292E004A0392 /* Gift TrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gift TrackerTests-Info.plist"; sourceTree = "<group>"; };
 		4B19F8BB178F292E004A0392 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4B19F8BD178F292E004A0392 /* Gift_TrackerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Gift_TrackerTests.h; sourceTree = "<group>"; };
 		4B19F8BE178F292E004A0392 /* Gift_TrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Gift_TrackerTests.m; sourceTree = "<group>"; };
+		4B19F8C8178F2A08004A0392 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		4B19F8CB178F2A53004A0392 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		4B19F8CC178F2A53004A0392 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		4B19F8CD178F2A53004A0392 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		4B19F8CE178F2A53004A0392 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		4B19F8CF178F2A53004A0392 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		4B19F8D0178F2A53004A0392 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		4B19F8D1178F2A53004A0392 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		4B19F8D2178F2A53004A0392 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		4B19F8D3178F2A53004A0392 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		4B19F8D4178F2A53004A0392 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		4B19F8DC178F40A5004A0392 /* gift.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = gift.db; sourceTree = "<group>"; };
+		4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourcesViewController.h; sourceTree = "<group>"; };
+		4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourcesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B19F8C9178F2A08004A0392 /* libsqlite3.dylib in Frameworks */,
 				4B19F888178F292E004A0392 /* UIKit.framework in Frameworks */,
 				4B19F88A178F292E004A0392 /* Foundation.framework in Frameworks */,
 				4B19F88C178F292E004A0392 /* CoreGraphics.framework in Frameworks */,
@@ -92,6 +109,7 @@
 		4B19F87B178F292D004A0392 = {
 			isa = PBXGroup;
 			children = (
+				4B19F8C8178F2A08004A0392 /* libsqlite3.dylib */,
 				4B19F88D178F292E004A0392 /* Gift Tracker */,
 				4B19F8B7178F292E004A0392 /* Gift TrackerTests */,
 				4B19F886178F292D004A0392 /* Frameworks */,
@@ -122,15 +140,14 @@
 		4B19F88D178F292E004A0392 /* Gift Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				4B19F8CA178F2A15004A0392 /* FMDB */,
 				4B19F896178F292E004A0392 /* giftAppDelegate.h */,
 				4B19F897178F292E004A0392 /* giftAppDelegate.m */,
 				4B19F89F178F292E004A0392 /* MainStoryboard_iPhone.storyboard */,
 				4B19F8A2178F292E004A0392 /* MainStoryboard_iPad.storyboard */,
-				4B19F8A5178F292E004A0392 /* giftMasterViewController.h */,
-				4B19F8A6178F292E004A0392 /* giftMasterViewController.m */,
-				4B19F8A8178F292E004A0392 /* giftDetailViewController.h */,
-				4B19F8A9178F292E004A0392 /* giftDetailViewController.m */,
 				4B19F88E178F292E004A0392 /* Supporting Files */,
+				4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */,
+				4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */,
 			);
 			path = "Gift Tracker";
 			sourceTree = "<group>";
@@ -138,6 +155,7 @@
 		4B19F88E178F292E004A0392 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4B19F8DC178F40A5004A0392 /* gift.db */,
 				4B19F88F178F292E004A0392 /* Gift Tracker-Info.plist */,
 				4B19F890178F292E004A0392 /* InfoPlist.strings */,
 				4B19F893178F292E004A0392 /* main.m */,
@@ -166,6 +184,23 @@
 				4B19F8BA178F292E004A0392 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4B19F8CA178F2A15004A0392 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				4B19F8CB178F2A53004A0392 /* FMDatabase.h */,
+				4B19F8CC178F2A53004A0392 /* FMDatabase.m */,
+				4B19F8CD178F2A53004A0392 /* FMDatabaseAdditions.h */,
+				4B19F8CE178F2A53004A0392 /* FMDatabaseAdditions.m */,
+				4B19F8CF178F2A53004A0392 /* FMDatabasePool.h */,
+				4B19F8D0178F2A53004A0392 /* FMDatabasePool.m */,
+				4B19F8D1178F2A53004A0392 /* FMDatabaseQueue.h */,
+				4B19F8D2178F2A53004A0392 /* FMDatabaseQueue.m */,
+				4B19F8D3178F2A53004A0392 /* FMResultSet.h */,
+				4B19F8D4178F2A53004A0392 /* FMResultSet.m */,
+			);
+			name = FMDB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +281,7 @@
 				4B19F89E178F292E004A0392 /* Default-568h@2x.png in Resources */,
 				4B19F8A1178F292E004A0392 /* MainStoryboard_iPhone.storyboard in Resources */,
 				4B19F8A4178F292E004A0392 /* MainStoryboard_iPad.storyboard in Resources */,
+				4B19F8DD178F40A5004A0392 /* gift.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,8 +318,12 @@
 			files = (
 				4B19F894178F292E004A0392 /* main.m in Sources */,
 				4B19F898178F292E004A0392 /* giftAppDelegate.m in Sources */,
-				4B19F8A7178F292E004A0392 /* giftMasterViewController.m in Sources */,
-				4B19F8AA178F292E004A0392 /* giftDetailViewController.m in Sources */,
+				4B19F8D5178F2A53004A0392 /* FMDatabase.m in Sources */,
+				4B19F8D6178F2A53004A0392 /* FMDatabaseAdditions.m in Sources */,
+				4B19F8D7178F2A53004A0392 /* FMDatabasePool.m in Sources */,
+				4B19F8D8178F2A53004A0392 /* FMDatabaseQueue.m in Sources */,
+				4B19F8D9178F2A53004A0392 /* FMResultSet.m in Sources */,
+				4B19F8E0178F40D3004A0392 /* giftSourcesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

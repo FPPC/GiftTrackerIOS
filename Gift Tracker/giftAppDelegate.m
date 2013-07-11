@@ -12,13 +12,45 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //copy the db file to Document folder of the app if it is not there yet
+    
+    //get the path to the Document folder
+    self.databaseName = @"gift.db";
+    NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDir = [documentPaths objectAtIndex:0];
+    self.databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
+    
+    //call helper to do the work
+    [self createAndCheckDatabase];
+    
     // Override point for customization after application launch.
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
     }
     return YES;
+}
+
+- (void) createAndCheckDatabase {
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //is the file in the document folder yet yet?
+    success = [fileManager fileExistsAtPath:self.databasePath];
+    
+    //TODO: check version of database:
+    // if the version in document folder is older
+    // BELL & WHISTLE : attempt to migrate old data over before copying
+    
+    // there is, nothing to do
+    if (success) return;
+    
+    //else copy it over
+    // construct the source path (from app resource)
+    NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.databaseName];
+    //copy it over to app document folder
+    [fileManager copyItemAtPath:databasePathFromApp toPath:self.databasePath error:nil];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

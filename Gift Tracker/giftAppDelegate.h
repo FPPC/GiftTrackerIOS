@@ -11,5 +11,7 @@
 @interface giftAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (copy, nonatomic) NSString * databaseName;
+@property (copy, nonatomic) NSString * databasePath;
 
 @end
