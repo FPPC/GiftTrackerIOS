@@ -21,5 +21,6 @@
 @property (assign, nonatomic) BOOL lobby;
 @property (copy, nonatomic) NSString * email;
 @property (copy, nonatomic) NSString * phone;
+@property (assign, nonatomic) double limitLeft;
 
 @end

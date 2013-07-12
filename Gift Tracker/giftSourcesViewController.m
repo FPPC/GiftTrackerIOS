@@ -37,8 +37,9 @@
     
     Source * s = [self.sources objectAtIndex:[indexPath row]];
     
-    [[cell textLabel] setText:s.name];
-    [[cell detailTextLabel] setText:s.business];
+    [(UILabel*)[cell viewWithTag:1] setText:s.name];
+    UILabel * limitLabel = (UILabel*)[cell viewWithTag:2];
+    [limitLabel setText:[NSString stringWithFormat:@"$%.2f",[self.dao limitLeft:s]]];
     return cell;
 }
 

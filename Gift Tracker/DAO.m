@@ -8,7 +8,15 @@
 
 #import "DAO.h"
 
+@interface DAO()
+-(Source *)processResult:(FMResultSet *)results;
+-(void) sortSources:(NSMutableArray *)sources;
+@end
+
 @implementation DAO
+
+const double LIMIT = 440.0;
+const double LOBBY_LIMIT = 10.0;
 
 
 -(id)init {
@@ -28,6 +36,12 @@
     [self.db close];
 }
 
+-(void)sortSources:(NSMutableArray *)sources {
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"limitLeft" ascending:YES];
+    [sources sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    sortDescriptor = nil;
+}
+
 - (NSMutableArray *)getAllSources {
     NSMutableArray * sources = [[NSMutableArray alloc] init];
     //query
@@ -37,6 +51,7 @@
     while ([results next]) {
         [sources addObject:[self processResult:results]];
     }
+    [self sortSources:sources];
     return sources;
 }
 
@@ -54,7 +69,7 @@
     s.lobby = ([results intForColumn:@"lobby"] != 0);
     s.email = [results stringForColumn:@"email"];
     s.phone = [results stringForColumn:@"phone"];
-    
+    s.limitLeft = [self limitLeft:s];
     return s;
 }
 
@@ -70,7 +85,20 @@
     while ([results next]) {
         [sources addObject:[self processResult:results]];
     }
+    [self sortSources:sources];
     return sources;
+}
+
+-(double)limitLeft:(Source *)source {
+    double output = (source.lobby)?LOBBY_LIMIT:LIMIT;
+    NSString * query = @"SELECT SUM(value) FROM giving WHERE sid = ?";
+    
+    FMResultSet *result = [self.db executeQuery:query withArgumentsInArray:[NSArray arrayWithObject:[NSNumber numberWithInteger:source.idno]]];
+    
+    if ([result next]) {
+        output -= [result doubleForColumnIndex:0];
+    }
+    return output;
 }
 
 @end
