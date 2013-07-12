@@ -81,10 +81,6 @@ const double LOBBY_LIMIT = 10.0;
 }
 
 -(NSMutableArray *)filterSources:(NSString *)searchString {
-    
-    if ((searchString == nil) || ([[searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)) {
-        return [self getAllSources];
-    }
     NSMutableArray * sources = [[NSMutableArray alloc] init];
     //query
     NSString * query = @"SELECT s.* FROM source s JOIN source_index i ON i.docid = s.sid WHERE i.content match ?";

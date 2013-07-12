@@ -33,6 +33,8 @@
 		4B19F8E3178F4535004A0392 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8E2178F4535004A0392 /* DAO.m */; };
 		4B19F8E9178F45BF004A0392 /* Source.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8E8178F45BF004A0392 /* Source.m */; };
 		4B19F8EC178F64E9004A0392 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8EB178F64E9004A0392 /* Utility.m */; };
+		4B31F86A1790BB7C000A5365 /* giftNewSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */; };
+		4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,10 @@
 		4B19F8E8178F45BF004A0392 /* Source.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Source.m; sourceTree = "<group>"; };
 		4B19F8EA178F64E9004A0392 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		4B19F8EB178F64E9004A0392 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		4B31F8681790BB7C000A5365 /* giftNewSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftNewSourceViewController.h; sourceTree = "<group>"; };
+		4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftNewSourceViewController.m; sourceTree = "<group>"; };
+		4B31F86B1790C059000A5365 /* giftSourceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourceDetailViewController.h; sourceTree = "<group>"; };
+		4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +232,10 @@
 			children = (
 				4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */,
 				4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */,
+				4B31F8681790BB7C000A5365 /* giftNewSourceViewController.h */,
+				4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */,
+				4B31F86B1790C059000A5365 /* giftSourceDetailViewController.h */,
+				4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -362,6 +372,8 @@
 				4B19F8E3178F4535004A0392 /* DAO.m in Sources */,
 				4B19F8E9178F45BF004A0392 /* Source.m in Sources */,
 				4B19F8EC178F64E9004A0392 /* Utility.m in Sources */,
+				4B31F86A1790BB7C000A5365 /* giftNewSourceViewController.m in Sources */,
+				4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +556,7 @@
 				4B19F8C4178F292E004A0392 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4B19F8C5178F292E004A0392 /* Build configuration list for PBXNativeTarget "Gift TrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +565,7 @@
 				4B19F8C7178F292E004A0392 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

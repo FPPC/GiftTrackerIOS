@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "giftAppDelegate.h"
-#import "Source.h"
-#import "DAO.h"
+@class DAO;
 
 @interface giftSourcesViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 
@@ -19,5 +17,8 @@
 // the data array of the view, whenever you change this, call reload on tableview
 // to reload the cells
 @property (strong, nonatomic) NSMutableArray * sources;
+
+-(IBAction)saveNew:(UIStoryboardSegue *)segue;
+-(IBAction)cancelNew:(UIStoryboardSegue *)segue;
 
 @end

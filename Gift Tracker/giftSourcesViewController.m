@@ -7,6 +7,10 @@
 //
 
 #import "giftSourcesViewController.h"
+#import "giftAppDelegate.h"
+#import "Source.h"
+#import "DAO.h"
+#import "giftNewSourceViewController.h"
 
 @implementation giftSourcesViewController
 
@@ -39,13 +43,30 @@
     
     [(UILabel*)[cell viewWithTag:1] setText:s.name];
     UILabel * limitLabel = (UILabel*)[cell viewWithTag:2];
-    [limitLabel setText:[NSString stringWithFormat:@"$%.2f",[self.dao limitLeft:s]]];
+        if (s.limitLeft < 0) {
+        [limitLabel setTextColor:[UIColor colorWithRed:0.4 green:0 blue:0 alpha:1]];
+        [limitLabel setText:[NSString stringWithFormat:@"-$%.2f",-s.limitLeft]];
+
+    } else {
+        [limitLabel setTextColor:[UIColor colorWithRed:0 green:0.4 blue:0 alpha:1]];
+        [limitLabel setText:[NSString stringWithFormat:@"$%.2f",s.limitLeft]];
+
+    }
     return cell;
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    self.sources = [self.dao filterSources:searchText];
+    if ((searchText == nil) || ([[searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)) {
+        self.sources = [self.dao getAllSources];
+        [searchBar resignFirstResponder];
+    } else {
+        self.sources = [self.dao filterSources:searchText];
+    }
     [self.tableView reloadData];
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
 }
 
 @end
