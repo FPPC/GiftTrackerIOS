@@ -11,6 +11,7 @@
 @interface DAO()
 -(Source *)processResult:(FMResultSet *)results;
 -(void) sortSources:(NSMutableArray *)sources;
+-(void) doubleCheckLimit:(NSMutableArray *) sources;
 @end
 
 @implementation DAO
@@ -53,6 +54,12 @@ const double LOBBY_LIMIT = 10.0;
     }
     [self sortSources:sources];
     return sources;
+}
+
+- (void) doubleCheckLimit:(NSMutableArray *)sources {
+    for(Source *s in sources) {
+        s.limitLeft = [self limitLeft:s];
+    }
 }
 
 - (Source *) processResult:(FMResultSet * )results {
