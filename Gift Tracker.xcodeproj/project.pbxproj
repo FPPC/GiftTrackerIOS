@@ -17,7 +17,6 @@
 		4B19F89C178F292E004A0392 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F89B178F292E004A0392 /* Default@2x.png */; };
 		4B19F89E178F292E004A0392 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F89D178F292E004A0392 /* Default-568h@2x.png */; };
 		4B19F8A1178F292E004A0392 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F89F178F292E004A0392 /* MainStoryboard_iPhone.storyboard */; };
-		4B19F8A4178F292E004A0392 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F8A2178F292E004A0392 /* MainStoryboard_iPad.storyboard */; };
 		4B19F8B2178F292E004A0392 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F8B1178F292E004A0392 /* SenTestingKit.framework */; };
 		4B19F8B3178F292E004A0392 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F887178F292E004A0392 /* UIKit.framework */; };
 		4B19F8B4178F292E004A0392 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B19F889178F292E004A0392 /* Foundation.framework */; };
@@ -31,6 +30,9 @@
 		4B19F8D9178F2A53004A0392 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8D4178F2A53004A0392 /* FMResultSet.m */; };
 		4B19F8DD178F40A5004A0392 /* gift.db in Resources */ = {isa = PBXBuildFile; fileRef = 4B19F8DC178F40A5004A0392 /* gift.db */; };
 		4B19F8E0178F40D3004A0392 /* giftSourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */; };
+		4B19F8E3178F4535004A0392 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8E2178F4535004A0392 /* DAO.m */; };
+		4B19F8E9178F45BF004A0392 /* Source.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8E8178F45BF004A0392 /* Source.m */; };
+		4B19F8EC178F64E9004A0392 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8EB178F64E9004A0392 /* Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +60,6 @@
 		4B19F89B178F292E004A0392 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4B19F89D178F292E004A0392 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4B19F8A0178F292E004A0392 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		4B19F8A3178F292E004A0392 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		4B19F8B0178F292E004A0392 /* Gift TrackerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gift TrackerTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B19F8B1178F292E004A0392 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4B19F8B9178F292E004A0392 /* Gift TrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gift TrackerTests-Info.plist"; sourceTree = "<group>"; };
@@ -79,6 +80,12 @@
 		4B19F8DC178F40A5004A0392 /* gift.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = gift.db; sourceTree = "<group>"; };
 		4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourcesViewController.h; sourceTree = "<group>"; };
 		4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourcesViewController.m; sourceTree = "<group>"; };
+		4B19F8E1178F4535004A0392 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
+		4B19F8E2178F4535004A0392 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAO.m; sourceTree = "<group>"; };
+		4B19F8E7178F45BF004A0392 /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Source.h; sourceTree = "<group>"; };
+		4B19F8E8178F45BF004A0392 /* Source.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Source.m; sourceTree = "<group>"; };
+		4B19F8EA178F64E9004A0392 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		4B19F8EB178F64E9004A0392 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,14 +147,14 @@
 		4B19F88D178F292E004A0392 /* Gift Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				4B19F89F178F292E004A0392 /* MainStoryboard_iPhone.storyboard */,
+				4B19F8E5178F458B004A0392 /* ViewController */,
+				4B19F8E4178F457E004A0392 /* Model */,
 				4B19F8CA178F2A15004A0392 /* FMDB */,
 				4B19F896178F292E004A0392 /* giftAppDelegate.h */,
 				4B19F897178F292E004A0392 /* giftAppDelegate.m */,
-				4B19F89F178F292E004A0392 /* MainStoryboard_iPhone.storyboard */,
-				4B19F8A2178F292E004A0392 /* MainStoryboard_iPad.storyboard */,
+				4B19F8E6178F45A2004A0392 /* Utility */,
 				4B19F88E178F292E004A0392 /* Supporting Files */,
-				4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */,
-				4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */,
 			);
 			path = "Gift Tracker";
 			sourceTree = "<group>";
@@ -201,6 +208,35 @@
 				4B19F8D4178F2A53004A0392 /* FMResultSet.m */,
 			);
 			name = FMDB;
+			sourceTree = "<group>";
+		};
+		4B19F8E4178F457E004A0392 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B19F8E1178F4535004A0392 /* DAO.h */,
+				4B19F8E2178F4535004A0392 /* DAO.m */,
+				4B19F8E7178F45BF004A0392 /* Source.h */,
+				4B19F8E8178F45BF004A0392 /* Source.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4B19F8E5178F458B004A0392 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */,
+				4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		4B19F8E6178F45A2004A0392 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4B19F8EA178F64E9004A0392 /* Utility.h */,
+				4B19F8EB178F64E9004A0392 /* Utility.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,7 +316,6 @@
 				4B19F89C178F292E004A0392 /* Default@2x.png in Resources */,
 				4B19F89E178F292E004A0392 /* Default-568h@2x.png in Resources */,
 				4B19F8A1178F292E004A0392 /* MainStoryboard_iPhone.storyboard in Resources */,
-				4B19F8A4178F292E004A0392 /* MainStoryboard_iPad.storyboard in Resources */,
 				4B19F8DD178F40A5004A0392 /* gift.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +359,9 @@
 				4B19F8D8178F2A53004A0392 /* FMDatabaseQueue.m in Sources */,
 				4B19F8D9178F2A53004A0392 /* FMResultSet.m in Sources */,
 				4B19F8E0178F40D3004A0392 /* giftSourcesViewController.m in Sources */,
+				4B19F8E3178F4535004A0392 /* DAO.m in Sources */,
+				4B19F8E9178F45BF004A0392 /* Source.m in Sources */,
+				4B19F8EC178F64E9004A0392 /* Utility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,14 +398,6 @@
 				4B19F8A0178F292E004A0392 /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		4B19F8A2178F292E004A0392 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4B19F8A3178F292E004A0392 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		4B19F8BA178F292E004A0392 /* InfoPlist.strings */ = {

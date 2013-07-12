@@ -14,14 +14,15 @@
 {
     //copy the db file to Document folder of the app if it is not there yet
     
+    self.databaseName=@"gift.db";
+    
     //get the path to the Document folder
-    self.databaseName = @"gift.db";
-    NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDir = [documentPaths objectAtIndex:0];
-    self.databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
+    self.databasePath = [Utility getDatabasePath:self.databaseName];
     
     //call helper to do the work
     [self createAndCheckDatabase];
+    
+    self.dao = [[DAO alloc] init];
     
     // Override point for customization after application launch.
     
@@ -63,11 +64,17 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    // We cut tie to the DAO and terminate DB connection here.
+    self.dao = nil;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    // create the DAO and open DB connection here, since there's only 1 app accessing the DB, and everything is singlethreaded. Foreground/background point is safe
+    self.dao = [[DAO alloc] init];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
