@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Source;
+@interface giftNewSourceViewController : UITableViewController <UITextFieldDelegate>
 
-@interface giftNewSourceViewController : UITableViewController
+@property (strong, nonatomic) Source * source;
 
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *addr1;
@@ -21,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UITextField *phone;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *save;
+
+-(IBAction) editingChange;
 
 @end

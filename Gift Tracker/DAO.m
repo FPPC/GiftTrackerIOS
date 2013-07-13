@@ -110,4 +110,8 @@ const double LOBBY_LIMIT = 10.0;
     return output;
 }
 
+- (BOOL) insertSource:(Source *)s {
+        //TODO
+}
+
 @end

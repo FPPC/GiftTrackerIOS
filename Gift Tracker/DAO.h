@@ -19,7 +19,7 @@ extern const double LOBBY_LIMIT;
 -(NSMutableArray *) getAllSources;
 -(NSMutableArray *) filterSources:(NSString *)searchString;
 -(double) limitLeft:(Source *) source;
-//-(BOOL) insertSource:(Source *) s;
+-(BOOL) insertSource:(Source *) s;
 //-(BOOL) updateSource:(Source *) s;
 
 @end

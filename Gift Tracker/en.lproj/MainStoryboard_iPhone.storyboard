@@ -133,7 +133,10 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3WB-kj-xUT">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="namePhonePad" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="namePhonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="editingChange" destination="Upp-EF-czL" eventType="editingChanged" id="RlL-jg-UFM"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -157,7 +160,7 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Business, if any, of source" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G2J-qi-akD">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -208,7 +211,7 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Business address acceptable" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7HE-kh-MJH">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -228,7 +231,7 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Suite, Apt, Unit" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e7c-e9-v07">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -248,21 +251,21 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CE5-GU-KiN">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zipcode" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4fb-1S-1Hs">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="74" id="aju-5T-oXI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CA" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fqi-F7-6ve">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="36" id="F2T-92-CTj"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -332,12 +335,12 @@
                     <navigationItem key="navigationItem" title="New Source" id="Bp8-aM-gcE">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="m4l-Fx-11z">
                             <connections>
-                                <segue destination="jba-SV-9Sh" kind="unwind" unwindAction="cancelNew:" id="3c3-Cc-B2t"/>
+                                <segue destination="jba-SV-9Sh" kind="unwind" identifier="CancelNew" unwindAction="cancelNew:" id="3c3-Cc-B2t"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="143-wD-Myx">
                             <connections>
-                                <segue destination="jba-SV-9Sh" kind="unwind" unwindAction="saveNew:" id="JiH-aU-RnF"/>
+                                <segue destination="jba-SV-9Sh" kind="unwind" identifier="SaveNew" unwindAction="saveNew:" id="JiH-aU-RnF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -350,6 +353,7 @@
                         <outlet property="lobbyist" destination="r98-cS-YBg" id="tF5-2z-8ur"/>
                         <outlet property="name" destination="3WB-kj-xUT" id="lAc-1M-nCP"/>
                         <outlet property="phone" destination="J04-5f-bXg" id="RCi-vy-2Sm"/>
+                        <outlet property="save" destination="143-wD-Myx" id="37Y-9J-NwG"/>
                         <outlet property="state" destination="fqi-F7-6ve" id="hQ8-qe-Re9"/>
                         <outlet property="zip" destination="4fb-1S-1Hs" id="RQR-qo-wOe"/>
                     </connections>
@@ -970,14 +974,16 @@
         <class className="giftNewSourceViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftNewSourceViewController.h"/>
             <relationships>
+                <relationship kind="action" name="editingChange"/>
                 <relationship kind="outlet" name="addr1" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="addr2" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="business" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="city" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="email" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lobbyist" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lobbyist" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="name" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="phone" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="save" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="state" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="zip" candidateClass="UITextField"/>
             </relationships>
