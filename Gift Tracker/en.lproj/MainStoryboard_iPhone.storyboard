@@ -341,11 +341,23 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addr1" destination="7HE-kh-MJH" id="DOd-cU-K8Q"/>
+                        <outlet property="addr2" destination="e7c-e9-v07" id="fnn-eS-awc"/>
+                        <outlet property="business" destination="G2J-qi-akD" id="KCP-lt-HLC"/>
+                        <outlet property="city" destination="CE5-GU-KiN" id="tji-it-7Ws"/>
+                        <outlet property="email" destination="Tcs-mV-4Fl" id="LMi-vo-QuW"/>
+                        <outlet property="lobbyist" destination="r98-cS-YBg" id="tF5-2z-8ur"/>
+                        <outlet property="name" destination="3WB-kj-xUT" id="lAc-1M-nCP"/>
+                        <outlet property="phone" destination="J04-5f-bXg" id="RCi-vy-2Sm"/>
+                        <outlet property="state" destination="fqi-F7-6ve" id="hQ8-qe-Re9"/>
+                        <outlet property="zip" destination="4fb-1S-1Hs" id="RQR-qo-wOe"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PZ-nM-cBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jba-SV-9Sh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1223" y="-1158"/>
+            <point key="canvasLocation" x="721" y="-726"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Oyt-Mv-hSd">
@@ -360,7 +372,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZc-7m-Nn8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="789" y="-1206"/>
+            <point key="canvasLocation" x="193" y="-750"/>
         </scene>
         <!--Gift Source Detail View Controller - Root View Controller-->
         <scene sceneID="WU0-lU-fUr">
@@ -698,7 +710,7 @@
             <objects>
                 <tabBarController definesPresentationContext="YES" id="j49-wY-KM7" customClass="giftSourceDetailTabBar" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="pEk-7X-xn8"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="PF5-jb-TWI">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -958,8 +970,16 @@
         <class className="giftNewSourceViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftNewSourceViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelEdit:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="saveEdit:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="outlet" name="addr1" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="addr2" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="business" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="city" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="email" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lobbyist" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="name" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="phone" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="state" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="zip" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="giftSourceDetailTabBar" superclassName="UITabBarController">
@@ -982,6 +1002,10 @@
         </class>
         <class className="giftSourcesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftSourcesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelNew:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="saveNew:" candidateClass="UIStoryboardSegue"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

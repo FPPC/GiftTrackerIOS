@@ -10,7 +10,16 @@
 
 @interface giftNewSourceViewController : UITableViewController
 
--(IBAction)cancelEdit:(UIStoryboardSegue *)segue;
--(IBAction)saveEdit:(UIStoryboardSegue *)segue;
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *addr1;
+@property (weak, nonatomic) IBOutlet UITextField *addr2;
+@property (weak, nonatomic) IBOutlet UITextField *city;
+@property (weak, nonatomic) IBOutlet UITextField *state;
+@property (weak, nonatomic) IBOutlet UITextField *zip;
+@property (weak, nonatomic) IBOutlet UITextField *business;
+@property (weak, nonatomic) IBOutlet UISwitch *lobbyist;
+@property (weak, nonatomic) IBOutlet UITextField *email;
+@property (weak, nonatomic) IBOutlet UITextField *phone;
+
 
 @end

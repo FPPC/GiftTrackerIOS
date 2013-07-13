@@ -18,7 +18,7 @@
 // to reload the cells
 @property (strong, nonatomic) NSMutableArray * sources;
 
-//-(IBAction)saveNew:(UIStoryboardSegue *)segue;
-//-(IBAction)cancelNew:(UIStoryboardSegue *)segue;
+-(IBAction)saveNew:(UIStoryboardSegue *)segue;
+-(IBAction)cancelNew:(UIStoryboardSegue *)segue;
 
 @end
