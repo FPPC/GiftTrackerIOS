@@ -7,12 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FMDatabase.h"
-#import "FMResultSet.h"
-#import "Source.h"
-#import "Utility.h"
-#import "giftAppDelegate.h"
-
+@class FMDatabase;
+@class Source;
 @interface DAO : NSObject
 
 @property (strong, nonatomic) FMDatabase * db;

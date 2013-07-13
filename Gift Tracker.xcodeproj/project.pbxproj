@@ -35,6 +35,7 @@
 		4B19F8EC178F64E9004A0392 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B19F8EB178F64E9004A0392 /* Utility.m */; };
 		4B31F86A1790BB7C000A5365 /* giftNewSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */; };
 		4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */; };
+		4B31F8701790D45F000A5365 /* giftSourceDetailTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftNewSourceViewController.m; sourceTree = "<group>"; };
 		4B31F86B1790C059000A5365 /* giftSourceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourceDetailViewController.h; sourceTree = "<group>"; };
 		4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailViewController.m; sourceTree = "<group>"; };
+		4B31F86E1790D45F000A5365 /* giftSourceDetailTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourceDetailTabBar.h; sourceTree = "<group>"; };
+		4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailTabBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,8 @@
 				4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */,
 				4B31F86B1790C059000A5365 /* giftSourceDetailViewController.h */,
 				4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */,
+				4B31F86E1790D45F000A5365 /* giftSourceDetailTabBar.h */,
+				4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				4B19F8EC178F64E9004A0392 /* Utility.m in Sources */,
 				4B31F86A1790BB7C000A5365 /* giftNewSourceViewController.m in Sources */,
 				4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */,
+				4B31F8701790D45F000A5365 /* giftSourceDetailTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

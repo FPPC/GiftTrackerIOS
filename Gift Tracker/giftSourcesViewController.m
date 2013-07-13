@@ -11,6 +11,14 @@
 #import "Source.h"
 #import "DAO.h"
 #import "giftNewSourceViewController.h"
+#import "giftSourceDetailViewController.h"
+#import "giftSourceDetailTabBar.h"
+
+@interface giftSourcesViewController () {
+
+}
+
+@end
 
 @implementation giftSourcesViewController
 
@@ -23,8 +31,6 @@
         self.sources = [self.dao getAllSources];
     }
 }
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.sources count];
@@ -67,6 +73,13 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"ShowSourceDetails"]) {
+        giftSourceDetailTabBar *tabBar = [segue destinationViewController];
+        tabBar.source = [self.sources objectAtIndex:[self.tableView indexPathForCell:sender].row];
+    }
 }
 
 @end

@@ -7,26 +7,21 @@
 //
 
 #import "giftSourceDetailViewController.h"
+#import "Source.h"
 
 @interface giftSourceDetailViewController ()
+
 
 @end
 
 @implementation giftSourceDetailViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize source, name, addr1, addr2, city, state, zip, business, lobbyist, email, phone;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [self configureView];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -41,30 +36,6 @@
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
 
 /*
 // Override to support conditional editing of the table view.
@@ -116,6 +87,20 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+-(void)configureView {
+    Source * s = self.source;
+    self.name.text=s.name;
+    self.addr1.text=s.addr1;
+    self.addr2.text=s.addr2;
+    self.city.text=s.city;
+    self.state.text=s.state;
+    self.zip.text=s.zip;
+    self.business.text=s.business;
+    self.email.text=s.email;
+    self.phone.text=s.phone;
+    self.lobbyist.text= (s.lobby)?@"Lobbyist":@"";
 }
 
 @end

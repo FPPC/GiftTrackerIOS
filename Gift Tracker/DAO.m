@@ -7,6 +7,12 @@
 //
 
 #import "DAO.h"
+#import "FMDatabase.h"
+#import "FMResultSet.h"
+#import "Source.h"
+#import "Utility.h"
+#import "giftAppDelegate.h"
+
 
 @interface DAO()
 -(Source *)processResult:(FMResultSet *)results;
