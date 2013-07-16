@@ -88,6 +88,10 @@ const double LOBBY_LIMIT = 10.0;
 
 -(NSMutableArray *)filterSources:(NSString *)searchString {
     NSMutableArray * sources = [[NSMutableArray alloc] init];
+    if (searchString == nil) {
+        NSLog(@"What do you think? it's NIL!");
+        return [self getAllSources];
+    }
     //query
     NSString * query = @"SELECT s.* FROM source s JOIN source_index i ON i.docid = s.sid WHERE i.content match ?";
     FMResultSet *results = [self.db executeQuery:query withArgumentsInArray:[NSArray arrayWithObject:[searchString stringByAppendingString:@"*"]]];
@@ -111,7 +115,18 @@ const double LOBBY_LIMIT = 10.0;
 }
 
 - (BOOL) insertSource:(Source *)s {
-        //TODO
+    NSString * query = @"INSERT INTO source (name,addr1,addr2,city,state,zip,business,lobby,email,phone) values (?,?,?,?,?,?,?,?,?,?)";
+    BOOL success = [self.db executeUpdate:query, s.name, s.addr1, s.addr2, s.city, s.state, s.zip,
+                    s.business, [NSNumber numberWithBool:s.lobby], s.email, s.phone];
+    if (success) {
+        NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
+                              s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
+        NSString * index_query = @"INSERT INTO source_index (docid,content) values (?, ?)";
+        NSNumber * idno = [NSNumber numberWithInteger:[self.db lastInsertRowId]];
+        BOOL index_success = [self.db executeUpdate:index_query, idno, content];
+        success = success && index_success;
+    }
+    return success;
 }
 
 @end

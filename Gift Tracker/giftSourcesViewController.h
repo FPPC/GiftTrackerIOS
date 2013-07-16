@@ -16,7 +16,8 @@
 @property (weak, nonatomic) DAO * dao;
 // the data array of the view, whenever you change this, call reload on tableview
 // to reload the cells
-@property (strong, nonatomic) NSMutableArray * sources;
+@property (copy, nonatomic) NSMutableArray * sources;
+@property (weak, nonatomic) IBOutlet UISearchBar *sBar;
 
 -(IBAction)saveNew:(UIStoryboardSegue *)segue;
 -(IBAction)cancelNew:(UIStoryboardSegue *)segue;

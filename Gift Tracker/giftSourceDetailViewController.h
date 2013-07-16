@@ -26,4 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 
 
+-(IBAction)saveEdit:(UIStoryboardSegue *)segue;
+-(IBAction)cancelEdit:(UIStoryboardSegue *)segue;
+
+
 @end

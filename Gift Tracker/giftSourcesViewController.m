@@ -40,16 +40,18 @@
             [self.dao insertSource:newController.source];
         }
         
-        self.sources = [self.dao filterSources:self.searchDisplayController.searchBar.text];
+        self.sources = [self.dao filterSources:self.sBar.text];
         [[self tableView] reloadData];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)cancelNew:(UIStoryboardSegue *)segue {
-    if ([[segue identifier] isEqualToString:@"CancelNew"]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    //if ([[segue identifier] isEqualToString:@"CancelNew"]) {
+        //if (![self isBeingDismissed]) {
+        //    [self dismissViewControllerAnimated:YES completion:nil];
+        //}
+    //}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

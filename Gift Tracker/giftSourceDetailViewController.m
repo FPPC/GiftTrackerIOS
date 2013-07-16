@@ -103,4 +103,18 @@
     self.lobbyist.text= (s.lobby)?@"Lobbyist":@"";
 }
 
+-(IBAction)cancelEdit:(UIStoryboardSegue *)segue {
+//    if ([[segue identifier] isEqualToString:@"CancelEdit"])
+//      [self dismissViewControllerAnimated:YES completion:nil];
+//    }
+}
+
+-(IBAction)saveEdit:(UIStoryboardSegue *)segue {
+    if ([[segue identifier] isEqualToString:@"SaveEdit"]) {
+        
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 @end

@@ -48,7 +48,7 @@
         self.source = [[Source alloc] init];
         self.source.name = self.name.text;
         self.source.business = self.business.text;
-        self.source.lobby = self.lobbyist.selected;
+        self.source.lobby = self.lobbyist.on ;
         self.source.addr1 = self.addr1.text;
         self.source.addr2 = self.addr2.text;
         self.source.city = self.city.text;
