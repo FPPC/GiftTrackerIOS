@@ -88,8 +88,7 @@ const double LOBBY_LIMIT = 10.0;
 
 -(NSMutableArray *)filterSources:(NSString *)searchString {
     NSMutableArray * sources = [[NSMutableArray alloc] init];
-    if (searchString == nil) {
-        NSLog(@"What do you think? it's NIL!");
+    if ((searchString == nil) || ([searchString length] == 0)){
         return [self getAllSources];
     }
     //query
@@ -122,8 +121,38 @@ const double LOBBY_LIMIT = 10.0;
         NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
                               s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
         NSString * index_query = @"INSERT INTO source_index (docid,content) values (?, ?)";
+        
+        // WARNING: THIS IS INTENDED FOR SINGLE THREADED APP ONLY, NOT THREAD-SAFE
         NSNumber * idno = [NSNumber numberWithInteger:[self.db lastInsertRowId]];
         BOOL index_success = [self.db executeUpdate:index_query, idno, content];
+        success = success && index_success;
+    }
+    return success;
+}
+
+-(BOOL) updateSource:(Source *)old newSource:(Source *)newSource {
+    
+    // Why getting idno directly work?
+    // SourceDetailVC (view controller) get info from the sources arrays in SourceVC
+    // SourceVC get its array from getAllSources and filterSource in DAO class
+    // getAllSource and filterSource build their object with processResult, which give the object its database sid
+    // under the property idno;
+    // therefore the old Source know its own database id.
+    
+    NSInteger sid = old.idno;
+    
+    NSString * query = @"UPDATE source SET name=?, addr1=?, addr2=?, city=?, state=?, zip=?, business=?, lobby=?, email=?, phone=? \
+            WHERE sid = ?";
+    
+    BOOL success = [self.db executeUpdate:query, newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state, newSource.zip,
+                    newSource.business, [NSNumber numberWithBool:newSource.lobby], newSource.email, newSource.phone, [NSNumber numberWithInteger:sid]];
+    
+    if (success) {
+        query = @"UPDATE source_index SET content = ? WHERE docid = ?";
+        NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state,
+                              newSource.zip, newSource.business, newSource.lobby?@"lobbyist":@"", newSource.email, newSource.phone];
+        
+        BOOL index_success = [self.db executeUpdate:query, content, [NSNumber numberWithInteger:sid]];
         success = success && index_success;
     }
     return success;

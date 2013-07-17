@@ -8,6 +8,9 @@
 
 #import "giftSourceDetailViewController.h"
 #import "Source.h"
+#import "giftEditSourceViewController.h"
+#import "DAO.h"
+#import "giftAppDelegate.h"
 
 @interface giftSourceDetailViewController ()
 
@@ -21,6 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dao = ( (giftAppDelegate *)[[UIApplication sharedApplication] delegate] ).dao;
     [self configureView];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -104,16 +108,51 @@
 }
 
 -(IBAction)cancelEdit:(UIStoryboardSegue *)segue {
-//    if ([[segue identifier] isEqualToString:@"CancelEdit"])
-//      [self dismissViewControllerAnimated:YES completion:nil];
-//    }
+}
+
+- (IBAction)deleteButton:(UIButton *)sender {
+    UIAlertView * doubleCheck = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Delete?" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+    [doubleCheck show];
 }
 
 -(IBAction)saveEdit:(UIStoryboardSegue *)segue {
     if ([[segue identifier] isEqualToString:@"SaveEdit"]) {
-        
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
+        giftEditSourceViewController * editController = [segue sourceViewController];
+        if (editController.source) {
+            if ([self.dao updateSource:self.source newSource:editController.source]) {
+                // update successfully, now update the view
+                
+                // both source property in two view controller are strong, dont assign nor copy it whole
+                // I know it's tedious, but it's safer this way
+                // idno should stay the same for self.source
+                self.source.name = editController.source.name;
+                self.source.addr1 = editController.source.addr1;
+                self.source.addr2 = editController.source.addr2;
+                self.source.city = editController.source.city;
+                self.source.state = editController.source.state;
+                self.source.zip = editController.source.zip;
+                self.source.business = editController.source.business;
+                self.source.lobby = editController.source.lobby;
+                self.source.email = editController.source.email;
+                self.source.phone = editController.source.phone;
+                
+                //nil the editController source
+                editController.source = nil;
+                
+                //reload
+                [self configureView];
+            }
+        }
+    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"SourceDetailsToEdit"]) {
+        UINavigationController * nav = [segue destinationViewController];
+        giftEditSourceViewController * editController = [[nav viewControllers] objectAtIndex:0];
+        editController.source = self.source;
+        // again, they are strong 
     }
 }
 

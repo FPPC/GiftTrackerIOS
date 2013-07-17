@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 @class Source;
+@class DAO;
 
 @interface giftSourceDetailViewController : UITableViewController
 
 -(void)configureView;
+
+@property (weak, nonatomic) DAO * dao;
 @property (strong, nonatomic) Source * source;
 
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -29,5 +32,6 @@
 -(IBAction)saveEdit:(UIStoryboardSegue *)segue;
 -(IBAction)cancelEdit:(UIStoryboardSegue *)segue;
 
+- (IBAction)deleteButton:(UIButton *)sender;
 
 @end

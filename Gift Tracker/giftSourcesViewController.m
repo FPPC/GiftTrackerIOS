@@ -26,10 +26,21 @@
     [super viewDidLoad];
     // make connection to the one the only DAO object of the whole app
     self.dao = ((giftAppDelegate*) [[UIApplication sharedApplication] delegate]).dao;
-    //populate the initial sources;
+    
+    /*populate the initial sources;
     if (self.sources == nil) {
         self.sources = [self.dao getAllSources];
     }
+     */
+    // Only load the DAO (data access object) when view controller is loaded in memory
+    // we do the loading of the actual table when view appear in front
+    // can be optimized here, but I figure it wont be much of a performance hit.
+}
+
+// reload sources when view appear - that way it update when resume from editting in detail view too !
+- (void) viewDidAppear:(BOOL)animated {
+    self.sources = [self.dao filterSources:self.sBar.text];
+    [[self tableView] reloadData];
 }
 
 -(IBAction)saveNew:(UIStoryboardSegue *)segue {
@@ -37,21 +48,21 @@
         
         giftNewSourceViewController * newController = [segue sourceViewController];
         if (newController.source) {
-            [self.dao insertSource:newController.source];
+            if ([self.dao insertSource:newController.source]) {
+                
+                // newController.source is strong propery, release it now
+                newController.source = nil;
+                
+                // update the table view
+                self.sources = [self.dao filterSources:self.sBar.text];
+                [[self tableView] reloadData];
+            }
         }
-        
-        self.sources = [self.dao filterSources:self.sBar.text];
-        [[self tableView] reloadData];
-    }
+}
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)cancelNew:(UIStoryboardSegue *)segue {
-    //if ([[segue identifier] isEqualToString:@"CancelNew"]) {
-        //if (![self isBeingDismissed]) {
-        //    [self dismissViewControllerAnimated:YES completion:nil];
-        //}
-    //}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

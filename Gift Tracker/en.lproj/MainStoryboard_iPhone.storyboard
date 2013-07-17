@@ -381,10 +381,10 @@
             </objects>
             <point key="canvasLocation" x="193" y="-750"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Gift Edit Source View Controller - Edit Source-->
         <scene sceneID="OEm-VP-194">
             <objects>
-                <tableViewController id="RIY-Nb-aFN" sceneMemberID="viewController">
+                <tableViewController id="RIY-Nb-aFN" customClass="giftEditSourceViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YEl-4P-42F">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -402,6 +402,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of Source" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Bq-RF-I4L">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="namePhonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="editingChange" destination="RIY-Nb-aFN" eventType="editingChanged" id="nuL-kC-5vd"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -597,7 +600,7 @@
                             <outlet property="delegate" destination="RIY-Nb-aFN" id="Oji-ru-m1d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Jsx-Kr-kuG">
+                    <navigationItem key="navigationItem" title="Edit Source" id="Jsx-Kr-kuG">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zGs-6L-vHw">
                             <connections>
                                 <segue destination="DuU-l5-TyK" kind="unwind" identifier="CancelEdit" unwindAction="cancelEdit:" id="LTi-uz-4mj"/>
@@ -609,13 +612,26 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addr1" destination="uy2-YI-UJk" id="B8i-Fi-fXF"/>
+                        <outlet property="addr2" destination="nA7-LC-V5a" id="kV9-EG-MSc"/>
+                        <outlet property="business" destination="dYW-E6-BvM" id="G5I-iM-cNX"/>
+                        <outlet property="city" destination="l8K-xx-R30" id="UKe-9B-psA"/>
+                        <outlet property="email" destination="0CH-I7-7PT" id="LEo-i7-GSK"/>
+                        <outlet property="lobbyist" destination="JzQ-hv-qMJ" id="Ang-GP-ylO"/>
+                        <outlet property="name" destination="5Bq-RF-I4L" id="29e-PV-fwW"/>
+                        <outlet property="phone" destination="z9v-qe-zqU" id="Dk1-I0-iHe"/>
+                        <outlet property="save" destination="Qns-mt-rgH" id="1PR-Aa-Ohf"/>
+                        <outlet property="state" destination="vPL-YZ-dRy" id="98o-bq-w0A"/>
+                        <outlet property="zip" destination="Ocz-X4-ZGM" id="diM-q1-cOR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUY-e1-LnD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DuU-l5-TyK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2421" y="-960"/>
         </scene>
-        <!--Gift Source Detail View Controller - Root View Controller-->
+        <!--Gift Source Detail View Controller - Source Details-->
         <scene sceneID="WU0-lU-fUr">
             <objects>
                 <tableViewController id="Q3v-8X-Sqp" customClass="giftSourceDetailViewController" sceneMemberID="viewController">
@@ -655,13 +671,31 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="3wx-TM-PCw" kind="modal" id="AP6-fg-R0N"/>
+                                                        <segue destination="3wx-TM-PCw" kind="modal" identifier="SourceDetailsToEdit" id="AP6-fg-R0N"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DB2-mv-Nl8">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="73" id="Iip-Cx-5cu"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Delete">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteButton:" destination="Q3v-8X-Sqp" eventType="touchUpInside" id="XHL-UB-SE2"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="s1F-Ad-X5w" firstAttribute="leading" secondItem="DB2-mv-Nl8" secondAttribute="trailing" type="user" id="02D-gq-raJ"/>
+                                            <constraint firstItem="DB2-mv-Nl8" firstAttribute="top" secondItem="YZV-Ns-zbz" secondAttribute="top" type="default" id="CIj-FG-h1n"/>
                                             <constraint firstItem="a7V-Xp-6Wj" firstAttribute="leading" secondItem="YZV-Ns-zbz" secondAttribute="leading" constant="20" type="default" id="EMb-e6-6OM"/>
                                             <constraint firstAttribute="centerY" secondItem="s1F-Ad-X5w" secondAttribute="centerY" type="user" id="dH5-Bc-uwO"/>
                                             <constraint firstAttribute="centerY" secondItem="a7V-Xp-6Wj" secondAttribute="centerY" type="user" id="fR9-q7-cAX"/>
@@ -901,7 +935,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="KQg-sW-1sK"/>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="zhI-Tc-hhr"/>
+                    <navigationItem key="navigationItem" title="Source Details" id="zhI-Tc-hhr"/>
                     <connections>
                         <outlet property="addr1" destination="mB4-aM-9dQ" id="9yS-EG-fjh"/>
                         <outlet property="addr2" destination="mOg-JN-7We" id="JzP-1s-KcG"/>
@@ -992,6 +1026,23 @@
         <class className="UIStoryboardSegue" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
+        <class className="giftEditSourceViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/giftEditSourceViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="editingChange"/>
+                <relationship kind="outlet" name="addr1" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="addr2" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="business" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="city" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="email" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lobbyist" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="name" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="phone" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="save" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="state" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="zip" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="giftNewSourceViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftNewSourceViewController.h"/>
             <relationships>
@@ -1016,6 +1067,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftSourceDetailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelEdit:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="deleteButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="saveEdit:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="addr1" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="addr2" candidateClass="UILabel"/>
