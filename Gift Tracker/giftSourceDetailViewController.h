@@ -10,7 +10,7 @@
 @class Source;
 @class DAO;
 
-@interface giftSourceDetailViewController : UITableViewController
+@interface giftSourceDetailViewController : UITableViewController <UIAlertViewDelegate>
 
 -(void)configureView;
 

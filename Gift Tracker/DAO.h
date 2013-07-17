@@ -16,10 +16,17 @@
 extern const double LIMIT;
 extern const double LOBBY_LIMIT;
 
+//C
+-(BOOL) insertSource:(Source *) s;
+
+//R
 -(NSMutableArray *) getAllSources;
 -(NSMutableArray *) filterSources:(NSString *)searchString;
 -(double) limitLeft:(Source *) source;
--(BOOL) insertSource:(Source *) s;
+//U
 -(BOOL) updateSource:(Source *)old newSource:(Source *)newSource;
+//D
+-(BOOL) deleteSource:(Source *)source;
+
 
 @end

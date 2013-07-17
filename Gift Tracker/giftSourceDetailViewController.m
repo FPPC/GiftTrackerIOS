@@ -111,8 +111,17 @@
 }
 
 - (IBAction)deleteButton:(UIButton *)sender {
-    UIAlertView * doubleCheck = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Delete?" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+    UIAlertView * doubleCheck = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
     [doubleCheck show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        //handle the transition
+        if ([self.dao deleteSource:self.source]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 -(IBAction)saveEdit:(UIStoryboardSegue *)segue {

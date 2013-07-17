@@ -18,6 +18,7 @@
 -(Source *)processResult:(FMResultSet *)results;
 -(void) sortSources:(NSMutableArray *)sources;
 -(void) doubleCheckLimit:(NSMutableArray *) sources;
+-(void) cleanupOrphanedGift;
 @end
 
 @implementation DAO
@@ -115,17 +116,37 @@ const double LOBBY_LIMIT = 10.0;
 
 - (BOOL) insertSource:(Source *)s {
     NSString * query = @"INSERT INTO source (name,addr1,addr2,city,state,zip,business,lobby,email,phone) values (?,?,?,?,?,?,?,?,?,?)";
-    BOOL success = [self.db executeUpdate:query, s.name, s.addr1, s.addr2, s.city, s.state, s.zip,
-                    s.business, [NSNumber numberWithBool:s.lobby], s.email, s.phone];
-    if (success) {
+    NSString * index_query = @"INSERT INTO source_index (docid,content) values (?, ?)";
+    BOOL success;
+    [self.db beginTransaction];
+    //it will either end with a commit, or a rollback
+    @try {
+ 
+        success = [self.db executeUpdate:query, s.name, s.addr1, s.addr2, s.city, s.state, s.zip,
+                        s.business, [NSNumber numberWithBool:s.lobby], s.email, s.phone];
+        if (!success) {
+            //exception throw
+            [NSException raise:@"can't insert source" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
+                    s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
+        }
+        
         NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
                               s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
-        NSString * index_query = @"INSERT INTO source_index (docid,content) values (?, ?)";
-        
+                
         // WARNING: THIS IS INTENDED FOR SINGLE THREADED APP ONLY, NOT THREAD-SAFE
         NSNumber * idno = [NSNumber numberWithInteger:[self.db lastInsertRowId]];
         BOOL index_success = [self.db executeUpdate:index_query, idno, content];
         success = success && index_success;
+        if (!index_success) {
+            //exception throw
+            [NSException raise:@"Cant index source" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
+             s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
+        }
+        [self.db commit];
+    }
+    
+    @catch (NSException *e) {
+        [self.db rollback];
     }
     return success;
 }
@@ -156,6 +177,51 @@ const double LOBBY_LIMIT = 10.0;
         success = success && index_success;
     }
     return success;
+}
+
+- (void)cleanupOrphanedGift {
+    NSString * query = @"DELETE FROM gift WHERE gid NOT IN (SELECT gid FROM giving)";
+    NSString * index_query = @"DELETE FROM gift_index WHERE docid NOT IN (SELECT gid FROM giving)";
+    [self.db beginTransaction];
+    @try {
+        if (![self.db executeUpdate:query]) {
+            [NSException raise:@"can't cleanup orphaned gifts" format:@""];
+        }
+        if (![self.db executeUpdate:index_query]) {
+            [NSException raise:@"can't cleanup orphaned gifts index" format:@""];
+        }
+        [self.db commit];
+    }
+    @catch (NSException * e) {
+        [self.db rollback];
+    }
+}
+
+-(BOOL) deleteSource:(Source *)source {
+    NSNumber * sid = [NSNumber numberWithInteger:source.idno];
+    NSString * query =@"DELETE FROM source WHERE sid = ?";
+    NSString * d_giving = @"DELETE FROM giving WHERE sid =?";
+    NSString * d_index = @"DELETE FROM source_index WHERE docid = ?";
+    [self.db beginTransaction];
+    @try {
+        if (![self.db executeUpdate:query, sid]) {
+
+            [NSException raise:@"Delete Source error" format:@""];
+        }
+        if (![self.db executeUpdate:d_giving, sid]) {
+            [NSException raise:@"Delete in table giving error" format:@""];
+        }
+        if (![self.db executeUpdate:d_index, sid]) {
+            [NSException raise:@"Delete Source index error" format:@""];
+        }
+        [self.db commit];
+        [self cleanupOrphanedGift];
+    }
+    @catch (NSException *exception) {
+        [self.db rollback];
+        return NO;
+    }
+    return YES;
 }
 
 @end
