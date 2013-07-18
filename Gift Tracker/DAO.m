@@ -12,13 +12,16 @@
 #import "Source.h"
 #import "Utility.h"
 #import "giftAppDelegate.h"
+#import "Gift.h"
 
 
 @interface DAO()
--(Source *)processResult:(FMResultSet *)results;
+-(Source *)processSourceResult:(FMResultSet *)results;
+-(Gift *) processGiftResult:(FMResultSet *)results;
 -(void) sortSources:(NSMutableArray *)sources;
 -(void) doubleCheckLimit:(NSMutableArray *) sources;
 -(void) cleanupOrphanedGift;
+-(void) updateGiftContributionForGift:(Gift *)g fromResults:(FMResultSet *)results;
 @end
 
 @implementation DAO
@@ -57,7 +60,7 @@ const double LOBBY_LIMIT = 10.0;
     //run
     FMResultSet *results = [self.db executeQuery:query];
     while ([results next]) {
-        [sources addObject:[self processResult:results]];
+        [sources addObject:[self processSourceResult:results]];
     }
     [self sortSources:sources];
     return sources;
@@ -69,7 +72,7 @@ const double LOBBY_LIMIT = 10.0;
     }
 }
 
-- (Source *) processResult:(FMResultSet * )results {
+- (Source *) processSourceResult:(FMResultSet * )results {
     Source *s = [[Source alloc] init];
     s.idno = [results intForColumn:@"sid"];
     //convention over configuration, @property name should be the same as column name, except the id (which is a reserved word)
@@ -87,6 +90,29 @@ const double LOBBY_LIMIT = 10.0;
     return s;
 }
 
+- (Gift *) processGiftResult:(FMResultSet *)results {
+    Gift * g = [[Gift alloc] init];
+    s.description = [results stringForColumn:@"description"];
+    NSInteger idno = [results intForColumn:@"gid"];
+    NSInteger y = [results intForColumn:@"year"];
+    NSInteger m = [results intForColumn:@"month"];
+    NSInteger d = [results intForColumn:@"day"];
+    
+    NSDateComponents * dateComp = [[NSDateComponents alloc] init];
+    
+    NSCalendar * cal = [NSCalendar currentCalendar];
+    
+    [dateComp setYear:y];
+    [dateComp setMonth:m];
+    [dateComp setDay:d];
+    g.date = [cal dateFromComponents:dateComp];
+    
+}
+
+- (void)updateGiftContributionForGift:(Gift *)g fromResults:(FMResultSet *)results {
+    
+}
+
 -(NSMutableArray *)filterSources:(NSString *)searchString {
     NSMutableArray * sources = [[NSMutableArray alloc] init];
     if ((searchString == nil) || ([searchString length] == 0)){
@@ -96,7 +122,7 @@ const double LOBBY_LIMIT = 10.0;
     NSString * query = @"SELECT s.* FROM source s JOIN source_index i ON i.docid = s.sid WHERE i.content match ?";
     FMResultSet *results = [self.db executeQuery:query withArgumentsInArray:[NSArray arrayWithObject:[searchString stringByAppendingString:@"*"]]];
     while ([results next]) {
-        [sources addObject:[self processResult:results]];
+        [sources addObject:[self processSourceResult:results]];
     }
     [self sortSources:sources];
     return sources;
@@ -223,5 +249,54 @@ const double LOBBY_LIMIT = 10.0;
     }
     return YES;
 }
+
+-(BOOL) insertGift:(Gift *)g {
+    NSString * query = @"INSERT INTO gift(year,month,day,description) VALUES (?,?,?,?)";
+    NSString * index_query = @"INSERT INTO gift_index (docid, content) VALUES (?,?)";
+    NSString * giving = @"INSERT INTO giving(value,sid,gid) VALUES (?,?,?)";
+    
+    NSDateComponents * dateComp = [[NSCalendar currentCalendar] components:(NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit) fromDate:g.date];
+    NSUInteger d = [dateComp day];
+    NSUInteger m = [dateComp month];
+    NSUInteger y = [dateComp year];
+    
+    [self.db beginTransaction];
+    @try {
+        if (![self.db executeUpdate:query, y,m,d, g.description]) {
+            [NSException raise:@"Insert gift info fail" format:@"%d/%d/%d %@",m,d,y,g.description ];
+        }
+        //not thread safe
+        NSNumber * num = [NSNumber numberWithInteger:[self.db lastInsertRowId]];
+        NSString * content = [NSString stringWithFormat:@"%d/%d/%d %@",m,d,y,g.description];
+        if (![self.db executeUpdate:index_query,num,content]) {
+            [NSException raise:@"Insert gift index fail" format:@"%d/%d/%d %@",m,d,y,g.description ];
+        }
+        for(int i = 0; i < [g.contributions count]; i++) {
+            float value = [(NSNumber*)g.contributions[i] floatValue];
+            NSInteger sid = [(NSNumber *) g.contributors[i] integerValue];
+            
+            if (![self.db executeUpdate:giving, value , sid, num]) {
+                [NSException raise:@"Insert giving fail" format:@"%d/%d/%d %@ sid: %d, value: %.2f",m,d,y,g.description,sid,value];
+            }
+        }
+        
+        [self.db commit];
+    }
+    @catch (NSException *exception) {
+        [self.db rollback];
+    }
+}
+
+-(Gift *)getGiftWithId:(NSUInteger *)gid {
+    Gift * g = [[Gift alloc] init];
+    NSString * query = @"SELECT * FROM gift WHERE gid = ?";
+    NSString * giving_query = @"SELECT * FROM giving WHERE gid = ?";
+    FMResultSet * results = [self.db executeQuery:query,gid];
+    if ([results next]) {
+        [self processGiftResult:results];
+    }
+}
+
+-
 
 @end

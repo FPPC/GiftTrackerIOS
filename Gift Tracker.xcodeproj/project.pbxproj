@@ -36,6 +36,8 @@
 		4B31F86A1790BB7C000A5365 /* giftNewSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */; };
 		4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */; };
 		4B31F8701790D45F000A5365 /* giftSourceDetailTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */; };
+		4B945D401797639F008FCE33 /* giftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B945D3F1797639F008FCE33 /* giftViewController.m */; };
+		4B945D43179763C8008FCE33 /* Gift.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B945D42179763C8008FCE33 /* Gift.m */; };
 		4B9575C11795B6440011B62B /* giftEditSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9575C01795B6440011B62B /* giftEditSourceViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,10 @@
 		4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailViewController.m; sourceTree = "<group>"; };
 		4B31F86E1790D45F000A5365 /* giftSourceDetailTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourceDetailTabBar.h; sourceTree = "<group>"; };
 		4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailTabBar.m; sourceTree = "<group>"; };
+		4B945D3E1797639F008FCE33 /* giftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftViewController.h; sourceTree = "<group>"; };
+		4B945D3F1797639F008FCE33 /* giftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftViewController.m; sourceTree = "<group>"; };
+		4B945D41179763C7008FCE33 /* Gift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gift.h; sourceTree = "<group>"; };
+		4B945D42179763C8008FCE33 /* Gift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gift.m; sourceTree = "<group>"; };
 		4B9575BF1795B6440011B62B /* giftEditSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftEditSourceViewController.h; sourceTree = "<group>"; };
 		4B9575C01795B6440011B62B /* giftEditSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftEditSourceViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,6 +235,8 @@
 				4B19F8E2178F4535004A0392 /* DAO.m */,
 				4B19F8E7178F45BF004A0392 /* Source.h */,
 				4B19F8E8178F45BF004A0392 /* Source.m */,
+				4B945D41179763C7008FCE33 /* Gift.h */,
+				4B945D42179763C8008FCE33 /* Gift.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -236,16 +244,10 @@
 		4B19F8E5178F458B004A0392 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4B31F86E1790D45F000A5365 /* giftSourceDetailTabBar.h */,
-				4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */,
-				4B31F8681790BB7C000A5365 /* giftNewSourceViewController.h */,
-				4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */,
-				4B9575BF1795B6440011B62B /* giftEditSourceViewController.h */,
-				4B9575C01795B6440011B62B /* giftEditSourceViewController.m */,
-				4B31F86B1790C059000A5365 /* giftSourceDetailViewController.h */,
-				4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */,
-				4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */,
-				4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */,
+				4B945D3D17976313008FCE33 /* TheLinks */,
+				4B945D3C179762FE008FCE33 /* TheEdits */,
+				4B945D3B179762CA008FCE33 /* TheDetails */,
+				4B945D3A179762A8008FCE33 /* TheLists */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -257,6 +259,46 @@
 				4B19F8EB178F64E9004A0392 /* Utility.m */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		4B945D3A179762A8008FCE33 /* TheLists */ = {
+			isa = PBXGroup;
+			children = (
+				4B19F8DE178F40D3004A0392 /* giftSourcesViewController.h */,
+				4B19F8DF178F40D3004A0392 /* giftSourcesViewController.m */,
+				4B945D3E1797639F008FCE33 /* giftViewController.h */,
+				4B945D3F1797639F008FCE33 /* giftViewController.m */,
+			);
+			name = TheLists;
+			sourceTree = "<group>";
+		};
+		4B945D3B179762CA008FCE33 /* TheDetails */ = {
+			isa = PBXGroup;
+			children = (
+				4B31F86B1790C059000A5365 /* giftSourceDetailViewController.h */,
+				4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */,
+			);
+			name = TheDetails;
+			sourceTree = "<group>";
+		};
+		4B945D3C179762FE008FCE33 /* TheEdits */ = {
+			isa = PBXGroup;
+			children = (
+				4B31F8681790BB7C000A5365 /* giftNewSourceViewController.h */,
+				4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */,
+				4B9575BF1795B6440011B62B /* giftEditSourceViewController.h */,
+				4B9575C01795B6440011B62B /* giftEditSourceViewController.m */,
+			);
+			name = TheEdits;
+			sourceTree = "<group>";
+		};
+		4B945D3D17976313008FCE33 /* TheLinks */ = {
+			isa = PBXGroup;
+			children = (
+				4B31F86E1790D45F000A5365 /* giftSourceDetailTabBar.h */,
+				4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */,
+			);
+			name = TheLinks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +428,8 @@
 				4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */,
 				4B31F8701790D45F000A5365 /* giftSourceDetailTabBar.m in Sources */,
 				4B9575C11795B6440011B62B /* giftEditSourceViewController.m in Sources */,
+				4B945D401797639F008FCE33 /* giftViewController.m in Sources */,
+				4B945D43179763C8008FCE33 /* Gift.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

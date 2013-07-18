@@ -937,7 +937,7 @@
                             <outlet property="delegate" destination="Q3v-8X-Sqp" id="v60-Ka-fgM"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="KQg-sW-1sK"/>
+                    <tabBarItem key="tabBarItem" title="Source Details" id="KQg-sW-1sK"/>
                     <navigationItem key="navigationItem" title="Source Details" id="zhI-Tc-hhr"/>
                     <connections>
                         <outlet property="addr1" destination="mB4-aM-9dQ" id="9yS-EG-fjh"/>
@@ -956,7 +956,7 @@
             </objects>
             <point key="canvasLocation" x="1292" y="0.0"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Table View Controller - List of Gift-->
         <scene sceneID="Z0b-To-Fpv">
             <objects>
                 <tableViewController id="mwK-7v-4E1" sceneMemberID="viewController">
@@ -964,22 +964,54 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="EWx-Kb-Irh">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="mwK-7v-4E1" id="rCf-S7-Peq"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0M5-nV-5gY">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="sci-qA-UYz" detailTextLabel="x4O-Ag-zyp" style="IBUITableViewCellStyleValue1" id="0M5-nV-5gY">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sci-qA-UYz">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4O-Ag-zyp">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="cZ8-IW-baG"/>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="4Gg-6G-CgH"/>
+                    <tabBarItem key="tabBarItem" title="List of Gifts" id="cZ8-IW-baG"/>
+                    <navigationItem key="navigationItem" title="List of Gift" id="4Gg-6G-CgH"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="tLH-5L-LtJ" id="cYg-OA-5kb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rg8-7a-W4j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="tLH-5L-LtJ">
+                    <connections>
+                        <outlet property="delegate" destination="mwK-7v-4E1" id="aJH-Kg-jjA"/>
+                        <outlet property="searchBar" destination="EWx-Kb-Irh" id="nvZ-YM-E38"/>
+                        <outlet property="searchContentsController" destination="mwK-7v-4E1" id="kue-n0-9Lt"/>
+                        <outlet property="searchResultsDataSource" destination="mwK-7v-4E1" id="7nm-ro-7Zx"/>
+                        <outlet property="searchResultsDelegate" destination="mwK-7v-4E1" id="LXu-va-DhA"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1484" y="871"/>
         </scene>
