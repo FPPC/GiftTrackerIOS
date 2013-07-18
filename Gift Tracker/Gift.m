@@ -10,11 +10,10 @@
 
 @implementation Gift
 
-@synthesize description, date, contributors, contributions, idno;
+@synthesize description, date, contributions, idno;
 
 -(id)init {
     self = [super init];
-    self.contributors = [[NSMutableArray alloc] init];
     self.contributions = [[NSMutableArray alloc] init];
     return self;
 }

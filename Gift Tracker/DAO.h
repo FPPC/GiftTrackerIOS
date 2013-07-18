@@ -17,22 +17,37 @@
 extern const double LIMIT;
 extern const double LOBBY_LIMIT;
 
-//C
+//Source C
 -(BOOL) insertSource:(Source *) s;
--(BOOL) insertGift:(Gift *) g;
 
-//R
+//Source R
 -(NSMutableArray *) getAllSources;
 -(NSMutableArray *) filterSources:(NSString *)searchString;
--(NSMutableArray *) getAllGiftFromSource:(Source *)source;
--(Gift*)getGiftWithId:(NSUInteger *)gid;
 -(double) limitLeft:(Source *) source;
+-(void) doubleCheckLimit:(NSMutableArray *) sources;
 
-//U
+//Source U
 -(BOOL) updateSource:(Source *)old newSource:(Source *)newSource;
--(BOOL) updateGift:(Gift *)old newGift:(Gift *)newGift;
-//D
+
+//Source D
 -(BOOL) deleteSource:(Source *)source;
+
+/*================================================*/
+
+//Gift C
+-(BOOL) insertGift:(Gift *) g;
+
+//Gift R
+-(NSMutableArray *) getAllGiftFromSource:(Source *)source;
+-(NSMutableArray *)filterGiftFromSource:(Source *)source
+                       withSearchString:(NSString *) searchString;
+-(Gift*)getGiftWithId:(NSUInteger *)gid;
+-(void) updateGiftContributionForGift:(Gift *)g;
+
+//Gift U
+-(BOOL) updateGift:(Gift *)old newGift:(Gift *)newGift;
+
+//Gift D
 -(BOOL) deleteGift:(Gift *)gift;
 
 @end

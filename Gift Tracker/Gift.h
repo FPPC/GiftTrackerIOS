@@ -14,7 +14,6 @@
 @property (assign, nonatomic) NSUInteger idno;
 @property (strong, nonatomic) NSString * description;
 @property (strong, nonatomic) NSDate * date;
-@property (strong, nonatomic) NSMutableArray * contributors;
 @property (strong, nonatomic) NSMutableArray * contributions;
 
 @end

@@ -6,6 +6,27 @@
 //  Copyright (c) 2013 Fair Political Practices Commission. All rights reserved.
 //
 
+
+/* NOTICE:
+ * Sorry for putting all data access method in one big file
+ * intead of 2 files SourceDAO, GiftDAO. 
+ * I try my best to pragma mark it for ease of reading.
+ * 
+ * My reason:
+ * Any view controller that interacts with the database should only need one DAO for
+ * every database-related task. Also Xcode is accomodating enough with the reading.
+ * 
+ * Suggestion:
+ * A tidier but not-so-clean hack:
+ * Make DAO inherit from SourceDAO inherit from GiftDAO, or just inject methods
+ * definition into it.
+ *
+ * Pro: tidier code, 2-3 separate files to read instead of one big file
+ * Con: logically it doesn't make sense. (DAO is not a children of giftDAO nor
+ *      sourceDAO. And method injection is messy to read.
+ */
+
+
 #import "DAO.h"
 #import "FMDatabase.h"
 #import "FMResultSet.h"
@@ -13,15 +34,14 @@
 #import "Utility.h"
 #import "giftAppDelegate.h"
 #import "Gift.h"
+#import "Contribution.h"
 
 
 @interface DAO()
+-(void) cleanupOrphanedGift;
+-(void) sortSources:(NSMutableArray *)sources;
 -(Source *)processSourceResult:(FMResultSet *)results;
 -(Gift *) processGiftResult:(FMResultSet *)results;
--(void) sortSources:(NSMutableArray *)sources;
--(void) doubleCheckLimit:(NSMutableArray *) sources;
--(void) cleanupOrphanedGift;
--(void) updateGiftContributionForGift:(Gift *)g fromResults:(FMResultSet *)results;
 @end
 
 @implementation DAO
@@ -29,6 +49,9 @@
 const double LIMIT = 440.0;
 const double LOBBY_LIMIT = 10.0;
 
+// #pragma mark are XCode helper to jump to sections of code
+// Doesnt affect any programming logic at all
+#pragma mark Generic Object Method
 
 -(id)init {
     self = [super init];
@@ -47,29 +70,29 @@ const double LOBBY_LIMIT = 10.0;
     [self.db close];
 }
 
+#pragma mark Helper
+- (void)cleanupOrphanedGift {
+    NSString * query = @"DELETE FROM gift WHERE gid NOT IN (SELECT gid FROM giving)";
+    NSString * index_query = @"DELETE FROM gift_index WHERE docid NOT IN (SELECT gid FROM giving)";
+    [self.db beginTransaction];
+    @try {
+        if (![self.db executeUpdate:query]) {
+            [NSException raise:@"can't cleanup orphaned gifts" format:@""];
+        }
+        if (![self.db executeUpdate:index_query]) {
+            [NSException raise:@"can't cleanup orphaned gifts index" format:@""];
+        }
+        [self.db commit];
+    }
+    @catch (NSException * e) {
+        [self.db rollback];
+    }
+}
+
 -(void)sortSources:(NSMutableArray *)sources {
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"limitLeft" ascending:YES];
     [sources sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     sortDescriptor = nil;
-}
-
-- (NSMutableArray *)getAllSources {
-    NSMutableArray * sources = [[NSMutableArray alloc] init];
-    //query
-    NSString * query = @"SELECT * FROM source;";
-    //run
-    FMResultSet *results = [self.db executeQuery:query];
-    while ([results next]) {
-        [sources addObject:[self processSourceResult:results]];
-    }
-    [self sortSources:sources];
-    return sources;
-}
-
-- (void) doubleCheckLimit:(NSMutableArray *)sources {
-    for(Source *s in sources) {
-        s.limitLeft = [self limitLeft:s];
-    }
 }
 
 - (Source *) processSourceResult:(FMResultSet * )results {
@@ -90,10 +113,11 @@ const double LOBBY_LIMIT = 10.0;
     return s;
 }
 
-- (Gift *) processGiftResult:(FMResultSet *)results {
+- (Gift *) processGiftResultWithoutContributionList:(FMResultSet *)results {
     Gift * g = [[Gift alloc] init];
-    s.description = [results stringForColumn:@"description"];
-    NSInteger idno = [results intForColumn:@"gid"];
+    g.description = [results stringForColumn:@"description"];
+    g.idno = [results intForColumn:@"gid"];
+    
     NSInteger y = [results intForColumn:@"year"];
     NSInteger m = [results intForColumn:@"month"];
     NSInteger d = [results intForColumn:@"day"];
@@ -106,11 +130,61 @@ const double LOBBY_LIMIT = 10.0;
     [dateComp setMonth:m];
     [dateComp setDay:d];
     g.date = [cal dateFromComponents:dateComp];
-    
+    return g;
 }
 
-- (void)updateGiftContributionForGift:(Gift *)g fromResults:(FMResultSet *)results {
+#pragma mark Source Create
+
+- (BOOL) insertSource:(Source *)s {
+    NSString * query = @"INSERT INTO source (name,addr1,addr2,city,state,zip,business,lobby,email,phone) values (?,?,?,?,?,?,?,?,?,?)";
+    NSString * index_query = @"INSERT INTO source_index (docid,content) values (?, ?)";
+    BOOL success;
+    [self.db beginTransaction];
+    //it will either end with a commit, or a rollback
+    @try {
+        
+        success = [self.db executeUpdate:query, s.name, s.addr1, s.addr2, s.city, s.state, s.zip,
+                   s.business, [NSNumber numberWithBool:s.lobby], s.email, s.phone];
+        if (!success) {
+            //exception throw
+            [NSException raise:@"can't insert source" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
+             s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
+        }
+        
+        NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
+                              s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
+        
+        // WARNING: THIS IS INTENDED FOR SINGLE THREADED APP ONLY, NOT THREAD-SAFE
+        NSNumber * idno = [NSNumber numberWithInteger:[self.db lastInsertRowId]];
+        BOOL index_success = [self.db executeUpdate:index_query, idno, content];
+        success = success && index_success;
+        if (!index_success) {
+            //exception throw
+            [NSException raise:@"Cant index source" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
+             s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
+        }
+        [self.db commit];
+    }
     
+    @catch (NSException *e) {
+        [self.db rollback];
+    }
+    return success;
+}
+
+#pragma mark Source Read
+
+- (NSMutableArray *)getAllSources {
+    NSMutableArray * sources = [[NSMutableArray alloc] init];
+    //query
+    NSString * query = @"SELECT * FROM source;";
+    //run
+    FMResultSet *results = [self.db executeQuery:query];
+    while ([results next]) {
+        [sources addObject:[self processSourceResult:results]];
+    }
+    [self sortSources:sources];
+    return sources;
 }
 
 -(NSMutableArray *)filterSources:(NSString *)searchString {
@@ -140,42 +214,13 @@ const double LOBBY_LIMIT = 10.0;
     return output;
 }
 
-- (BOOL) insertSource:(Source *)s {
-    NSString * query = @"INSERT INTO source (name,addr1,addr2,city,state,zip,business,lobby,email,phone) values (?,?,?,?,?,?,?,?,?,?)";
-    NSString * index_query = @"INSERT INTO source_index (docid,content) values (?, ?)";
-    BOOL success;
-    [self.db beginTransaction];
-    //it will either end with a commit, or a rollback
-    @try {
- 
-        success = [self.db executeUpdate:query, s.name, s.addr1, s.addr2, s.city, s.state, s.zip,
-                        s.business, [NSNumber numberWithBool:s.lobby], s.email, s.phone];
-        if (!success) {
-            //exception throw
-            [NSException raise:@"can't insert source" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
-                    s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
-        }
-        
-        NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
-                              s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
-                
-        // WARNING: THIS IS INTENDED FOR SINGLE THREADED APP ONLY, NOT THREAD-SAFE
-        NSNumber * idno = [NSNumber numberWithInteger:[self.db lastInsertRowId]];
-        BOOL index_success = [self.db executeUpdate:index_query, idno, content];
-        success = success && index_success;
-        if (!index_success) {
-            //exception throw
-            [NSException raise:@"Cant index source" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", s.name, s.addr1, s.addr2,
-             s.city, s.state, s.zip, s.business, s.lobby?@"lobbyist":@"", s.email, s.phone];
-        }
-        [self.db commit];
+- (void) doubleCheckLimit:(NSMutableArray *)sources {
+    for(Source *s in sources) {
+        s.limitLeft = [self limitLeft:s];
     }
-    
-    @catch (NSException *e) {
-        [self.db rollback];
-    }
-    return success;
 }
+
+#pragma mark Source Update
 
 -(BOOL) updateSource:(Source *)old newSource:(Source *)newSource {
     
@@ -205,23 +250,7 @@ const double LOBBY_LIMIT = 10.0;
     return success;
 }
 
-- (void)cleanupOrphanedGift {
-    NSString * query = @"DELETE FROM gift WHERE gid NOT IN (SELECT gid FROM giving)";
-    NSString * index_query = @"DELETE FROM gift_index WHERE docid NOT IN (SELECT gid FROM giving)";
-    [self.db beginTransaction];
-    @try {
-        if (![self.db executeUpdate:query]) {
-            [NSException raise:@"can't cleanup orphaned gifts" format:@""];
-        }
-        if (![self.db executeUpdate:index_query]) {
-            [NSException raise:@"can't cleanup orphaned gifts index" format:@""];
-        }
-        [self.db commit];
-    }
-    @catch (NSException * e) {
-        [self.db rollback];
-    }
-}
+#pragma mark Source Delete
 
 -(BOOL) deleteSource:(Source *)source {
     NSNumber * sid = [NSNumber numberWithInteger:source.idno];
@@ -250,6 +279,7 @@ const double LOBBY_LIMIT = 10.0;
     return YES;
 }
 
+#pragma mark Gift Create
 -(BOOL) insertGift:(Gift *)g {
     NSString * query = @"INSERT INTO gift(year,month,day,description) VALUES (?,?,?,?)";
     NSString * index_query = @"INSERT INTO gift_index (docid, content) VALUES (?,?)";
@@ -272,9 +302,8 @@ const double LOBBY_LIMIT = 10.0;
             [NSException raise:@"Insert gift index fail" format:@"%d/%d/%d %@",m,d,y,g.description ];
         }
         for(int i = 0; i < [g.contributions count]; i++) {
-            float value = [(NSNumber*)g.contributions[i] floatValue];
-            NSInteger sid = [(NSNumber *) g.contributors[i] integerValue];
-            
+            NSUInteger sid = ((Contribution *)g.contributions[i]).sid;
+            float value = ((Contribution *)g.contributions[i]).value;
             if (![self.db executeUpdate:giving, value , sid, num]) {
                 [NSException raise:@"Insert giving fail" format:@"%d/%d/%d %@ sid: %d, value: %.2f",m,d,y,g.description,sid,value];
             }
@@ -287,16 +316,46 @@ const double LOBBY_LIMIT = 10.0;
     }
 }
 
+#pragma mark Gift Read
+
+-(NSMutableArray *) getAllGiftFromSource:(Source *)source {
+
+}
+
+-(NSMutableArray *) filterGiftFromSource:(Source *)source
+                        withSearchString:(NSString *)searchString {
+    
+}
+
 -(Gift *)getGiftWithId:(NSUInteger *)gid {
-    Gift * g = [[Gift alloc] init];
     NSString * query = @"SELECT * FROM gift WHERE gid = ?";
-    NSString * giving_query = @"SELECT * FROM giving WHERE gid = ?";
     FMResultSet * results = [self.db executeQuery:query,gid];
     if ([results next]) {
-        [self processGiftResult:results];
+        Gift * g = [self processGiftResultWithoutContributionList:results];
+        [self updateGiftContributionForGift:g];
+        return g;
+    }
+    return nil;
+}
+
+- (void)updateGiftContributionForGift:(Gift *)g {
+    NSString * query = @"SELECT * FROM giving WHERE gid = ?";
+    FMResultSet * results = [self.db executeQuery:query,g.idno];
+    while ([results next]) {
+        NSUInteger sourceId = [results intForColumn:@"sid"];
+        float gValue = [results doubleForColumn:@"value"];
+        [g.contributions addObject:[[Contribution alloc] initWithSid:sourceId value:gValue]];
     }
 }
 
--
+#pragma mark Gift Update
+-(BOOL) updateGift:(Gift *)old newGift:(Gift *)newGift {
+    
+}
+
+#pragma mark Gift Delete
+-(BOOL) deleteGift:(Gift *)gift {
+    
+}
 
 @end

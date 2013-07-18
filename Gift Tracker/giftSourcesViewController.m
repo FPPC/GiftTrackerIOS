@@ -40,6 +40,7 @@
 // reload sources when view appear - that way it update when resume from editting in detail view too !
 - (void) viewDidAppear:(BOOL)animated {
     self.sources = [self.dao filterSources:self.sBar.text];
+    [self.dao doubleCheckLimit:self.sources];
     [[self tableView] reloadData];
 }
 

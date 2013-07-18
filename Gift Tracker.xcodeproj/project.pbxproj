@@ -36,6 +36,7 @@
 		4B31F86A1790BB7C000A5365 /* giftNewSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F8691790BB7C000A5365 /* giftNewSourceViewController.m */; };
 		4B31F86D1790C059000A5365 /* giftSourceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */; };
 		4B31F8701790D45F000A5365 /* giftSourceDetailTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */; };
+		4B938EFA1798511000963E15 /* Contribution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B938EF91798511000963E15 /* Contribution.m */; };
 		4B945D401797639F008FCE33 /* giftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B945D3F1797639F008FCE33 /* giftViewController.m */; };
 		4B945D43179763C8008FCE33 /* Gift.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B945D42179763C8008FCE33 /* Gift.m */; };
 		4B9575C11795B6440011B62B /* giftEditSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9575C01795B6440011B62B /* giftEditSourceViewController.m */; };
@@ -98,6 +99,8 @@
 		4B31F86C1790C059000A5365 /* giftSourceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailViewController.m; sourceTree = "<group>"; };
 		4B31F86E1790D45F000A5365 /* giftSourceDetailTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftSourceDetailTabBar.h; sourceTree = "<group>"; };
 		4B31F86F1790D45F000A5365 /* giftSourceDetailTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftSourceDetailTabBar.m; sourceTree = "<group>"; };
+		4B938EF81798511000963E15 /* Contribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contribution.h; sourceTree = "<group>"; };
+		4B938EF91798511000963E15 /* Contribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contribution.m; sourceTree = "<group>"; };
 		4B945D3E1797639F008FCE33 /* giftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = giftViewController.h; sourceTree = "<group>"; };
 		4B945D3F1797639F008FCE33 /* giftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = giftViewController.m; sourceTree = "<group>"; };
 		4B945D41179763C7008FCE33 /* Gift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gift.h; sourceTree = "<group>"; };
@@ -166,11 +169,11 @@
 			isa = PBXGroup;
 			children = (
 				4B19F89F178F292E004A0392 /* MainStoryboard_iPhone.storyboard */,
+				4B19F896178F292E004A0392 /* giftAppDelegate.h */,
+				4B19F897178F292E004A0392 /* giftAppDelegate.m */,
 				4B19F8E5178F458B004A0392 /* ViewController */,
 				4B19F8E4178F457E004A0392 /* Model */,
 				4B19F8CA178F2A15004A0392 /* FMDB */,
-				4B19F896178F292E004A0392 /* giftAppDelegate.h */,
-				4B19F897178F292E004A0392 /* giftAppDelegate.m */,
 				4B19F8E6178F45A2004A0392 /* Utility */,
 				4B19F88E178F292E004A0392 /* Supporting Files */,
 			);
@@ -237,6 +240,8 @@
 				4B19F8E8178F45BF004A0392 /* Source.m */,
 				4B945D41179763C7008FCE33 /* Gift.h */,
 				4B945D42179763C8008FCE33 /* Gift.m */,
+				4B938EF81798511000963E15 /* Contribution.h */,
+				4B938EF91798511000963E15 /* Contribution.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 				4B9575C11795B6440011B62B /* giftEditSourceViewController.m in Sources */,
 				4B945D401797639F008FCE33 /* giftViewController.m in Sources */,
 				4B945D43179763C8008FCE33 /* Gift.m in Sources */,
+				4B938EFA1798511000963E15 /* Contribution.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
