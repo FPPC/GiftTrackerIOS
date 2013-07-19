@@ -96,12 +96,8 @@
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if ((searchText == nil) || ([[searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)) {
-        self.sources = [self.dao getAllSources];
-        [searchBar resignFirstResponder];
-    } else {
-        self.sources = [self.dao filterSources:searchText];
-    }
+    // DAO takes care of empty search string case too
+    self.sources = [self.dao filterSources:searchText];
     [self.tableView reloadData];
 }
 

@@ -17,7 +17,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-753" y="136"/>
+            <point key="canvasLocation" x="-515" y="148"/>
         </scene>
         <!--Gift Sources View Controller - Master-->
         <scene sceneID="18">
@@ -1051,7 +1051,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kx8-iX-us5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="-960"/>
+            <point key="canvasLocation" x="1881" y="-566"/>
         </scene>
     </scenes>
     <classes>

@@ -36,12 +36,13 @@ extern const double LOBBY_LIMIT;
 
 //Gift C
 -(BOOL) insertGift:(Gift *) g;
+-(BOOL) insertContributionList:(Gift *)g;
 
 //Gift R
 -(NSMutableArray *) getAllGiftFromSource:(Source *)source;
 -(NSMutableArray *)filterGiftFromSource:(Source *)source
                        withSearchString:(NSString *) searchString;
--(Gift*)getGiftWithId:(NSUInteger *)gid;
+-(Gift*)getGiftWithId:(NSUInteger)gid;
 -(void) updateGiftContributionForGift:(Gift *)g;
 
 //Gift U
@@ -49,5 +50,6 @@ extern const double LOBBY_LIMIT;
 
 //Gift D
 -(BOOL) deleteGift:(Gift *)gift;
+-(BOOL) deleteContributionList:(Gift *)gift;
 
 @end

@@ -114,10 +114,10 @@ const double LOBBY_LIMIT = 10.0;
 }
 
 - (Gift *) processGiftResultWithoutContributionList:(FMResultSet *)results {
+
     Gift * g = [[Gift alloc] init];
     g.description = [results stringForColumn:@"description"];
     g.idno = [results intForColumn:@"gid"];
-    
     NSInteger y = [results intForColumn:@"year"];
     NSInteger m = [results intForColumn:@"month"];
     NSInteger d = [results intForColumn:@"day"];
@@ -187,11 +187,16 @@ const double LOBBY_LIMIT = 10.0;
     return sources;
 }
 
+
+// if searchString is nil or 0, we give you all Sources
 -(NSMutableArray *)filterSources:(NSString *)searchString {
     NSMutableArray * sources = [[NSMutableArray alloc] init];
-    if ((searchString == nil) || ([searchString length] == 0)){
+    
+    // empty or all space cases, return everything
+    if ((searchString == nil) || ([[searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)) {
         return [self getAllSources];
     }
+    
     //query
     NSString * query = @"SELECT s.* FROM source s JOIN source_index i ON i.docid = s.sid WHERE i.content match ?";
     FMResultSet *results = [self.db executeQuery:query withArgumentsInArray:[NSArray arrayWithObject:[searchString stringByAppendingString:@"*"]]];
@@ -235,19 +240,31 @@ const double LOBBY_LIMIT = 10.0;
     
     NSString * query = @"UPDATE source SET name=?, addr1=?, addr2=?, city=?, state=?, zip=?, business=?, lobby=?, email=?, phone=? \
             WHERE sid = ?";
+
+    [self.db beginTransaction];
+    @try {
+        if (![self.db executeUpdate:query, newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state, newSource.zip,
+              newSource.business, [NSNumber numberWithBool:newSource.lobby], newSource.email, newSource.phone, [NSNumber numberWithInteger:sid]]) {
+            [NSException raise:@"Updating Source Failed" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state,
+             newSource.zip, newSource.business, newSource.lobby?@"lobbyist":@"", newSource.email, newSource.phone ];
+        }
     
-    BOOL success = [self.db executeUpdate:query, newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state, newSource.zip,
-                    newSource.business, [NSNumber numberWithBool:newSource.lobby], newSource.email, newSource.phone, [NSNumber numberWithInteger:sid]];
-    
-    if (success) {
-        query = @"UPDATE source_index SET content = ? WHERE docid = ?";
+
         NSString * content = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state,
                               newSource.zip, newSource.business, newSource.lobby?@"lobbyist":@"", newSource.email, newSource.phone];
+        query = @"UPDATE source_index SET content = ? WHERE docid = ?";
+
+        if(![self.db executeUpdate:query, content, [NSNumber numberWithInteger:sid]]) {
+            [NSException raise:@"Updating Source Index Failed" format:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@", newSource.name, newSource.addr1, newSource.addr2, newSource.city, newSource.state, newSource.zip, newSource.business, newSource.lobby?@"lobbyist":@"", newSource.email, newSource.phone ];
+        }
         
-        BOOL index_success = [self.db executeUpdate:query, content, [NSNumber numberWithInteger:sid]];
-        success = success && index_success;
+        [self.db commit];
     }
-    return success;
+    @catch (NSException * e) {
+        [self.db rollback];
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark Source Delete
@@ -313,21 +330,63 @@ const double LOBBY_LIMIT = 10.0;
     }
     @catch (NSException *exception) {
         [self.db rollback];
+        return NO;
     }
+    return YES;
+}
+
+-(BOOL) insertContributionList:(Gift *)g {
+#warning todo
 }
 
 #pragma mark Gift Read
 
--(NSMutableArray *) getAllGiftFromSource:(Source *)source {
 
+// Yep, we also need the contribution array so the view controller can read the value out
+-(NSMutableArray *) getAllGiftFromSource:(Source *)source {
+    NSMutableArray * gifts = [[NSMutableArray alloc] init];
+    NSString * query = @"SELECT * FROM giving WHERE sid = ?";
+    FMResultSet * resultSet = [self.db executeQuery:query,source.idno];
+    while ([resultSet next]) {
+        // get gid of the result,
+        // create a full-fledge (with contribution array) gift object with it
+        // add it to the array
+        [gifts addObject:[self getGiftWithId:[resultSet intForColumn:@"gid"]]];
+    }
+    return gifts;
 }
 
+// Empty string are taken care of here too.
 -(NSMutableArray *) filterGiftFromSource:(Source *)source
                         withSearchString:(NSString *)searchString {
+    if ((searchString == nil) ||
+        ([[searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)) {
+        return [self getAllGiftFromSource:source];
+    }
     
+    // Now the main dish
+    // get all gift from source (inner join), take only those that match search string (another inner join).
+    NSString * query = @"SELECT g.* FROM source s \
+    INNER JOIN giving g ON s.sid = g.sid \
+    INNER JOIN source_index i on i.docid = g.sid \
+    WHERE s.sid = ? AND I.content match ?";
+    
+    // prep the argument
+    NSString * matching = [searchString stringByAppendingString:@"*"];
+    FMResultSet * resultSet = [self.db executeQuery:query,source.idno, matching];
+    
+    NSMutableArray * gifts = [[NSMutableArray alloc] init];
+    while ([resultSet next]) {
+        Gift *g =  [self processGiftResult:resultSet];
+        [self updateGiftContributionForGift:g];
+        [gifts addObject:g];
+    }
+    return gifts;
 }
 
--(Gift *)getGiftWithId:(NSUInteger *)gid {
+
+// Yep, it's a complete gift with contribution list (a gift paid by many people
+-(Gift *)getGiftWithId:(NSUInteger)gid {
     NSString * query = @"SELECT * FROM gift WHERE gid = ?";
     FMResultSet * results = [self.db executeQuery:query,gid];
     if ([results next]) {
@@ -350,6 +409,52 @@ const double LOBBY_LIMIT = 10.0;
 
 #pragma mark Gift Update
 -(BOOL) updateGift:(Gift *)old newGift:(Gift *)newGift {
+    //Prep the ingredients
+    NSInteger gid = old.idno;
+    NSDateComponents * dateComp = [[NSCalendar currentCalendar] components:(NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit) fromDate:newGift.date];
+    NSInteger y = [dateComp year];
+    NSInteger m = [dateComp month];
+    NSInteger d = [dateComp day];
+    
+    NSString * content = [NSString stringWithFormat:@"%d/%d/%d %@",m,d,y,newGift.description];
+
+    NSString * query = @"UPDATE gift SET year = ?, month = ?, day = ?, description = ? where gid = ?";
+    NSString * query_index = @"UPDATE gift_index SET content = ? where docid =?";
+
+    
+    //start cooking the transaction
+    [self.db beginTransaction];
+    @try {
+        //main entry
+        if(![self.db executeUpdate:query, y,m,d,newGift.description,gid]) {
+            [NSException raise:@"Update gift details failed" format:@" %d/%d/%d %@",m,d,y,newGift.description ];
+        }
+        // the index
+        if (![self.db executeUpdate:query_index, content, gid]) {
+            [NSException raise:@"Update gift index failed" format:@" %d/%d/%d %@",m,d,y,newGift.description ];
+        }
+        // the giving
+        // delete the olds, insert the new. Complete in n.
+        
+        // If db update query is slow, we can do n squared in here by comparing the old and new array first, then
+        // only make the minimal change require. But it's complicated, very likely to be n squared, and we might
+        // end up running replace all as well. Not worth complicating.
+        
+        
+        //out with the old
+        [self deleteContributionList:old];
+        // yes it can be safely put inside a transaction
+        
+        //in with the new
+        for (int i = 0; i < [old.contributions count]; i++ ) {
+            
+        }
+        
+        [self.db commit];
+    }
+    @catch (NSException *e) {
+        [self.db rollback];
+    }
     
 }
 
@@ -357,5 +462,12 @@ const double LOBBY_LIMIT = 10.0;
 -(BOOL) deleteGift:(Gift *)gift {
     
 }
+
+-(BOOL) deleteContributionList:(Gift *)gift {
+    NSString * query = @"DELETE FROM giving WHERE gid =?";
+    [self.db beginTransaction];
+    return [self.db executeUpdate:query, gift.idno];
+}
+
 
 @end
