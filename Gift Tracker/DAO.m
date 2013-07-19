@@ -422,7 +422,7 @@ const double LOBBY_LIMIT = 10.0;
 
     NSString * query = @"UPDATE gift SET year = ?, month = ?, day = ?, description = ? where gid = ?";
     NSString * query_index = @"UPDATE gift_index SET content = ? where docid =?";
-
+    NSString * giving = @"INSERT INTO giving (sid,giv,value) VALUES (?,?,?)";
     
     //start cooking the transaction
     [self.db beginTransaction];
@@ -442,16 +442,21 @@ const double LOBBY_LIMIT = 10.0;
         // only make the minimal change require. But it's complicated, very likely to be n squared, and we might
         // end up running replace all as well. Not worth complicating.
         
+        //Simplest way to enforce consistency in my mind right now.
         
         //out with the old
-        [self deleteContributionList:old];
-        // yes it can be safely put inside a transaction
-        
-        //in with the new
-        for (int i = 0; i < [old.contributions count]; i++ ) {
-            
+        if (![self deleteContributionList:old]) {
+            [NSException raise:@"Gift update: delete old contribution failed" format:@""];
         }
         
+        // yes it can be safely put inside a transaction
+        //in with the new
+        for (int i = 0; i < [newGift.contributions count]; i++ ) {
+            Contribution * c = newGift.contributions[i];
+            if(![self.db executeUpdate:giving, c.sid,gid,c.value]) {
+                [NSException raise:@"Gift update: insert new contribution failed" format:@""];
+            }
+        }
         [self.db commit];
     }
     @catch (NSException *e) {
@@ -462,12 +467,28 @@ const double LOBBY_LIMIT = 10.0;
 
 #pragma mark Gift Delete
 -(BOOL) deleteGift:(Gift *)gift {
-    
+    NSString * query = @"DELETE FROM gift WHERE gid = ?";
+    NSString * index = @"DELETE FROM gift_index WHERE gid = ?";
+    [self.db beginTransaction];
+    @try {
+        if(![self deleteContributionList:gift]) {
+            [NSException raise:@"Delete gift contribution error" format:@"GID: %d",gift.idno];
+        }
+        if (![self.db executeUpdate:query,gift.idno]) {
+            [NSException raise:@"Delete Gift Error" format:@"GID: %d",gift.idno];
+        }
+        if (![self.db executeUpdate:index,gift.idno]) {
+            [NSException raise:@"Delete Gift Index Error" format:@"GID: %d",gift.idno];
+        }
+        [self.db commit];
+    }
+    @catch (NSException *exception) {
+        [self.db rollback];
+    }
 }
 
 -(BOOL) deleteContributionList:(Gift *)gift {
     NSString * query = @"DELETE FROM giving WHERE gid =?";
-    [self.db beginTransaction];
     return [self.db executeUpdate:query, gift.idno];
 }
 
