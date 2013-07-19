@@ -10,6 +10,8 @@
 
 @interface Contribution : NSObject
 
+
+@property (assign, nonatomic) NSUInteger idno;
 @property (assign, nonatomic) NSUInteger sid;
 @property (assign, nonatomic) float value;
 

@@ -10,7 +10,7 @@
 
 @implementation Contribution
 
-@synthesize value, sid;
+@synthesize value, sid, idno;
 
 -(id) initWithSid:(NSUInteger)sourceId value:(float)gValue {
     self = [super init];

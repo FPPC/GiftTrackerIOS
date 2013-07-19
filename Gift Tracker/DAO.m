@@ -403,7 +403,9 @@ const double LOBBY_LIMIT = 10.0;
     while ([results next]) {
         NSUInteger sourceId = [results intForColumn:@"sid"];
         float gValue = [results doubleForColumn:@"value"];
-        [g.contributions addObject:[[Contribution alloc] initWithSid:sourceId value:gValue]];
+        Contribution * contrib = [[Contribution alloc] initWithSid:sourceId value:gValue];
+        contrib.idno = [results intForColumn:@"gvid"];
+        [g.contributions addObject:contrib];
     }
 }
 
