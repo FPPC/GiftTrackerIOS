@@ -40,8 +40,10 @@
 @interface DAO()
 -(void) cleanupOrphanedGift;
 -(void) sortSources:(NSMutableArray *)sources;
+-(void) sortGift:(NSMutableArray *)gifts;
+
 -(Source *)processSourceResult:(FMResultSet *)results;
--(Gift *) processGiftResult:(FMResultSet *)results;
+- (Gift *) processGiftResultWithoutContributionList:(FMResultSet *)results;
 @end
 
 @implementation DAO
@@ -93,6 +95,12 @@ const double LOBBY_LIMIT = 10.0;
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"limitLeft" ascending:YES];
     [sources sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     sortDescriptor = nil;
+}
+
+-(void)sortGift:(NSMutableArray *)gifts {
+    NSSortDescriptor * sorter = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+    [gifts sortUsingDescriptors:[NSArray arrayWithObject:sorter]];
+    sorter = nil;
 }
 
 - (Source *) processSourceResult:(FMResultSet * )results {
@@ -335,10 +343,6 @@ const double LOBBY_LIMIT = 10.0;
     return YES;
 }
 
--(BOOL) insertContributionList:(Gift *)g {
-#warning todo
-}
-
 #pragma mark Gift Read
 
 
@@ -353,10 +357,12 @@ const double LOBBY_LIMIT = 10.0;
         // add it to the array
         [gifts addObject:[self getGiftWithId:[resultSet intForColumn:@"gid"]]];
     }
+    [self sortGift:gifts];
     return gifts;
 }
 
 // Empty string are taken care of here too.
+// Gift contribution list are updated too
 -(NSMutableArray *) filterGiftFromSource:(Source *)source
                         withSearchString:(NSString *)searchString {
     if ((searchString == nil) ||
@@ -377,10 +383,11 @@ const double LOBBY_LIMIT = 10.0;
     
     NSMutableArray * gifts = [[NSMutableArray alloc] init];
     while ([resultSet next]) {
-        Gift *g =  [self processGiftResult:resultSet];
+        Gift *g =  [self processGiftResultWithoutContributionList:resultSet];
         [self updateGiftContributionForGift:g];
         [gifts addObject:g];
     }
+    [self sortGift:gifts];
     return gifts;
 }
 

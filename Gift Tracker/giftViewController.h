@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface giftViewController : UITableViewController
+@class DAO;
+@class Source;
 
+@interface giftViewController : UITableViewController
+@property (weak, nonatomic) DAO * dao;
+@property (strong, nonatomic) Source * source;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (copy, nonatomic) NSMutableArray * gifts;
 @end

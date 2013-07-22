@@ -956,10 +956,10 @@
             </objects>
             <point key="canvasLocation" x="1292" y="0.0"/>
         </scene>
-        <!--Table View Controller - List of Gift-->
+        <!--Gift View Controller - List of Gift-->
         <scene sceneID="Z0b-To-Fpv">
             <objects>
-                <tableViewController id="mwK-7v-4E1" sceneMemberID="viewController">
+                <tableViewController id="mwK-7v-4E1" customClass="giftViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bwf-iM-qZj">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -973,7 +973,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="sci-qA-UYz" detailTextLabel="x4O-Ag-zyp" style="IBUITableViewCellStyleValue1" id="0M5-nV-5gY">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftCell" textLabel="sci-qA-UYz" detailTextLabel="x4O-Ag-zyp" style="IBUITableViewCellStyleValue1" id="0M5-nV-5gY">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -999,6 +999,7 @@
                     <tabBarItem key="tabBarItem" title="List of Gifts" id="cZ8-IW-baG"/>
                     <navigationItem key="navigationItem" title="List of Gift" id="4Gg-6G-CgH"/>
                     <connections>
+                        <outlet property="searchBar" destination="EWx-Kb-Irh" id="B4M-k2-ZkF"/>
                         <outlet property="searchDisplayController" destination="tLH-5L-LtJ" id="cYg-OA-5kb"/>
                     </connections>
                 </tableViewController>
@@ -1123,6 +1124,12 @@
                 <relationship kind="action" name="cancelNew:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="saveNew:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="sBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="giftViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/giftViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>
         </class>
     </classes>

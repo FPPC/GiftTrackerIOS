@@ -36,7 +36,6 @@ extern const double LOBBY_LIMIT;
 
 //Gift C
 -(BOOL) insertGift:(Gift *) g;
--(BOOL) insertContributionList:(Gift *)g;
 
 //Gift R
 -(NSMutableArray *) getAllGiftFromSource:(Source *)source;

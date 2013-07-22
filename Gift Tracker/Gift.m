@@ -7,7 +7,7 @@
 //
 
 #import "Gift.h"
-
+#import "Contribution.h"
 @implementation Gift
 
 @synthesize description, date, contributions, idno;
@@ -22,4 +22,14 @@
 -(NSComparisonResult)compare:(Gift *)otherGift {
     return [self.date compare:otherGift.date];
 }
+
+-(Contribution *)findContributionFromSourceId:(NSUInteger)sid {
+    for(int i = 0; i < [self.contributions count]; i++) {
+        if (((Contribution *)self.contributions[i]).sid == sid) {
+            return self.contributions[i];
+        }
+    }
+    return nil;
+}
+
 @end

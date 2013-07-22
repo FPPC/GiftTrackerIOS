@@ -18,5 +18,4 @@
     self.sid = sourceId;
     return self;
 }
-
 @end

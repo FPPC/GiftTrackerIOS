@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class Contribution;
 @interface Gift : NSObject
 
 
@@ -15,5 +15,7 @@
 @property (strong, nonatomic) NSString * description;
 @property (strong, nonatomic) NSDate * date;
 @property (strong, nonatomic) NSMutableArray * contributions;
+
+-(Contribution *)findContributionFromSourceId:(NSUInteger)sid;
 
 @end
