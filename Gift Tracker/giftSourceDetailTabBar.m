@@ -9,6 +9,7 @@
 #import "giftSourceDetailTabBar.h"
 #import "Source.h"
 #import "giftSourceDetailViewController.h"
+#import "giftViewController.h"
 @interface giftSourceDetailTabBar ()
 
 @end
@@ -31,6 +32,12 @@
     [super viewDidLoad];
     giftSourceDetailViewController * detail = [self.viewControllers objectAtIndex:0];
     detail.source = self.source;
+    /*
+    UINavigationController * nav = [self.viewControllers objectAtIndex:1];
+    giftViewController *giftVC = [[nav viewControllers] objectAtIndex:0];
+    */
+    giftViewController * giftVC = [self.viewControllers objectAtIndex:1];
+    giftVC.source = self.source;
    	// Do any additional setup after loading the view.
 }
 

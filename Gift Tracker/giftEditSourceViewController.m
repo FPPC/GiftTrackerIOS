@@ -31,9 +31,15 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if (self.source == nil) {
         return;
     }
+    /*
+    [self.navigationController.navigationBar.topItem setLeftBarButtonItem:self.navigationItem.leftBarButtonItem];
+    [self.navigationController.navigationBar.topItem setRightBarButtonItem:self.navigationItem.rightBarButtonItem];
+    [self.navigationController.navigationBar.topItem setTitle:self.navigationItem.title];
+    */
     [self.name setText:self.source.name];
     self.addr1.text = self.source.addr1;
     self.addr2.text = self.source.addr2;
@@ -46,6 +52,10 @@
     self.phone.text = self.source.phone;
 }
 
+
+- (IBAction)test:(id)sender {
+    NSLog(@"it did run");
+}
 
 -(IBAction)editingChange {
     if ([self.name.text length] != 0) {

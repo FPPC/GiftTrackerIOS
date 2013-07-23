@@ -381,12 +381,12 @@
             </objects>
             <point key="canvasLocation" x="193" y="-750"/>
         </scene>
-        <!--Gift Edit Source View Controller - Edit Source-->
+        <!--Gift Edit Source View Controller - Edit-->
         <scene sceneID="OEm-VP-194">
             <objects>
                 <tableViewController id="RIY-Nb-aFN" customClass="giftEditSourceViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YEl-4P-42F">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -600,15 +600,11 @@
                             <outlet property="delegate" destination="RIY-Nb-aFN" id="Oji-ru-m1d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Edit Source" id="Jsx-Kr-kuG">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zGs-6L-vHw">
-                            <connections>
-                                <segue destination="DuU-l5-TyK" kind="unwind" identifier="CancelEdit" unwindAction="cancelEdit:" id="LTi-uz-4mj"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Edit" id="Jsx-Kr-kuG">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Qns-mt-rgH">
                             <connections>
-                                <segue destination="DuU-l5-TyK" kind="unwind" identifier="SaveEdit" unwindAction="saveEdit:" id="VBr-CH-8g2"/>
+                                <action selector="test:" destination="RIY-Nb-aFN" id="Qkl-Ns-f1H"/>
+                                <segue destination="DuU-l5-TyK" kind="unwind" identifier="SaveEdit" unwindAction="saveEdit:" id="tgO-rI-uAc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -629,7 +625,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUY-e1-LnD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DuU-l5-TyK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2421" y="-960"/>
+            <point key="canvasLocation" x="1858" y="0.0"/>
         </scene>
         <!--Gift Source Detail View Controller - Source Details-->
         <scene sceneID="WU0-lU-fUr">
@@ -660,25 +656,10 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1F-Ad-X5w">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="73" id="3HC-kq-p2x"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal" title="Edit">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="3wx-TM-PCw" kind="modal" identifier="SourceDetailsToEdit" id="AP6-fg-R0N"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DB2-mv-Nl8">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="73" type="user" id="Iip-Cx-5cu"/>
+                                                        <constraint firstAttribute="height" constant="43" id="nRs-Z1-Hak"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Delete">
@@ -697,12 +678,11 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="DB2-mv-Nl8" secondAttribute="trailing" constant="73" type="user" id="1wM-FE-1Yd"/>
+                                            <constraint firstItem="a7V-Xp-6Wj" firstAttribute="top" secondItem="YZV-Ns-zbz" secondAttribute="top" constant="11" id="79D-8z-0AM"/>
                                             <constraint firstItem="DB2-mv-Nl8" firstAttribute="baseline" secondItem="a7V-Xp-6Wj" secondAttribute="baseline" type="default" id="A3k-Xg-Kyf"/>
-                                            <constraint firstItem="s1F-Ad-X5w" firstAttribute="top" secondItem="YZV-Ns-zbz" secondAttribute="top" type="default" id="CON-h8-dS4"/>
                                             <constraint firstItem="a7V-Xp-6Wj" firstAttribute="leading" secondItem="YZV-Ns-zbz" secondAttribute="leading" constant="20" type="default" id="EMb-e6-6OM"/>
+                                            <constraint firstItem="DB2-mv-Nl8" firstAttribute="top" secondItem="YZV-Ns-zbz" secondAttribute="top" constant="-1" id="HLa-ec-4G1"/>
                                             <constraint firstItem="DB2-mv-Nl8" firstAttribute="leading" secondItem="a7V-Xp-6Wj" secondAttribute="trailing" constant="6" type="user" id="iJS-2f-dkI"/>
-                                            <constraint firstItem="s1F-Ad-X5w" firstAttribute="trailing" secondItem="YZV-Ns-zbz" secondAttribute="trailing" type="user" id="lXU-cB-8P9"/>
-                                            <constraint firstItem="DB2-mv-Nl8" firstAttribute="top" secondItem="YZV-Ns-zbz" secondAttribute="top" type="default" id="miD-zu-TkD"/>
                                         </constraints>
                                     </tableViewCell>
                                 </cells>
@@ -938,7 +918,13 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Source Details" id="KQg-sW-1sK"/>
-                    <navigationItem key="navigationItem" title="Source Details" id="zhI-Tc-hhr"/>
+                    <navigationItem key="navigationItem" title="Source Details" id="zhI-Tc-hhr">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="h0z-g7-2YB">
+                            <connections>
+                                <segue destination="RIY-Nb-aFN" kind="push" identifier="SourceDetailToEdit" id="IpW-Go-sKI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addr1" destination="mB4-aM-9dQ" id="9yS-EG-fjh"/>
                         <outlet property="addr2" destination="mOg-JN-7We" id="JzP-1s-KcG"/>
@@ -959,9 +945,19 @@
         <!--Gift View Controller - List of Gift-->
         <scene sceneID="Z0b-To-Fpv">
             <objects>
+                <searchDisplayController id="tLH-5L-LtJ">
+                    <connections>
+                        <outlet property="delegate" destination="mwK-7v-4E1" id="aJH-Kg-jjA"/>
+                        <outlet property="searchBar" destination="EWx-Kb-Irh" id="nvZ-YM-E38"/>
+                        <outlet property="searchContentsController" destination="mwK-7v-4E1" id="kue-n0-9Lt"/>
+                        <outlet property="searchResultsDataSource" destination="mwK-7v-4E1" id="7nm-ro-7Zx"/>
+                        <outlet property="searchResultsDelegate" destination="mwK-7v-4E1" id="LXu-va-DhA"/>
+                    </connections>
+                </searchDisplayController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rg8-7a-W4j" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="mwK-7v-4E1" customClass="giftViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bwf-iM-qZj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="EWx-Kb-Irh">
@@ -973,11 +969,11 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftCell" textLabel="sci-qA-UYz" detailTextLabel="x4O-Ag-zyp" style="IBUITableViewCellStyleValue1" id="0M5-nV-5gY">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftCell" textLabel="sci-qA-UYz" detailTextLabel="x4O-Ag-zyp" style="IBUITableViewCellStyleValue1" id="0M5-nV-5gY">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sci-qA-UYz">
@@ -996,29 +992,24 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List of Gifts" id="cZ8-IW-baG"/>
-                    <navigationItem key="navigationItem" title="List of Gift" id="4Gg-6G-CgH"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="RKS-0P-NC8"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="List of Gift" id="4Gg-6G-CgH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="uQ1-qM-6Tv"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="EWx-Kb-Irh" id="B4M-k2-ZkF"/>
                         <outlet property="searchDisplayController" destination="tLH-5L-LtJ" id="cYg-OA-5kb"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rg8-7a-W4j" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="tLH-5L-LtJ">
-                    <connections>
-                        <outlet property="delegate" destination="mwK-7v-4E1" id="aJH-Kg-jjA"/>
-                        <outlet property="searchBar" destination="EWx-Kb-Irh" id="nvZ-YM-E38"/>
-                        <outlet property="searchContentsController" destination="mwK-7v-4E1" id="kue-n0-9Lt"/>
-                        <outlet property="searchResultsDataSource" destination="mwK-7v-4E1" id="7nm-ro-7Zx"/>
-                        <outlet property="searchResultsDelegate" destination="mwK-7v-4E1" id="LXu-va-DhA"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1484" y="871"/>
+            <point key="canvasLocation" x="1544" y="717"/>
         </scene>
         <!--Gift Source Detail Tab Bar-->
         <scene sceneID="TU6-vh-HSb">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="waj-5k-aO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController definesPresentationContext="YES" id="j49-wY-KM7" customClass="giftSourceDetailTabBar" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="pEk-7X-xn8"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -1029,30 +1020,11 @@
                     </tabBar>
                     <connections>
                         <segue destination="Q3v-8X-Sqp" kind="relationship" relationship="viewControllers" id="IKf-wR-fC4"/>
-                        <segue destination="mwK-7v-4E1" kind="relationship" relationship="viewControllers" id="vBj-c0-o2w"/>
+                        <segue destination="mwK-7v-4E1" kind="relationship" relationship="viewControllers" id="NOc-1S-D34"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="waj-5k-aO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="721" y="481"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Jji-Lk-dx8">
-            <objects>
-                <navigationController id="3wx-TM-PCw" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="H9C-Iz-HRi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="RIY-Nb-aFN" kind="relationship" relationship="rootViewController" id="eux-Mz-mlw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kx8-iX-us5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1881" y="-566"/>
         </scene>
     </scenes>
     <classes>
@@ -1066,6 +1038,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftEditSourceViewController.h"/>
             <relationships>
                 <relationship kind="action" name="editingChange"/>
+                <relationship kind="action" name="saveEdit:"/>
+                <relationship kind="action" name="test:"/>
                 <relationship kind="outlet" name="addr1" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="addr2" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="business" candidateClass="UITextField"/>
@@ -1102,10 +1076,8 @@
         <class className="giftSourceDetailViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/giftSourceDetailViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelEdit:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="deleteButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="prepareForSegue:sender:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="saveEdit:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="outlet" name="addr1" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="addr2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="business" candidateClass="UILabel"/>

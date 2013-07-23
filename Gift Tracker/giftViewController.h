@@ -11,7 +11,7 @@
 @class DAO;
 @class Source;
 
-@interface giftViewController : UITableViewController
+@interface giftViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 @property (weak, nonatomic) DAO * dao;
 @property (strong, nonatomic) Source * source;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;

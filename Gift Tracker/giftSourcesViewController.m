@@ -45,6 +45,7 @@
 }
 
 -(IBAction)saveNew:(UIStoryboardSegue *)segue {
+    NSLog(@"BOOHOO");
     if ([[segue identifier] isEqualToString:@"SaveNew"]) {
         
         giftNewSourceViewController * newController = [segue sourceViewController];
@@ -64,6 +65,7 @@
 }
 
 -(IBAction)cancelNew:(UIStoryboardSegue *)segue {
+    NSLog(@"Cancel");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

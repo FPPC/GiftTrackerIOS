@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class Source;
+@class DAO;
 @interface giftEditSourceViewController : UITableViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) Source * source;
+
+@property (weak, nonatomic) DAO * dao;
 
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *addr1;
@@ -25,5 +28,6 @@
 
 //Gray save button when name is empty
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *save;
+- (IBAction)test:(id)sender;
 -(IBAction) editingChange;
 @end
