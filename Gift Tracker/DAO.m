@@ -350,7 +350,7 @@ const double LOBBY_LIMIT = 10.0;
 -(NSMutableArray *) getAllGiftFromSource:(Source *)source {
     NSMutableArray * gifts = [[NSMutableArray alloc] init];
     NSString * query = @"SELECT * FROM giving WHERE sid = ?";
-    FMResultSet * resultSet = [self.db executeQuery:query,[NSNumber numberWithInt:source.idno]];
+    FMResultSet * resultSet = [self.db executeQuery:query,source.idno];
     while ([resultSet next]) {
         // get gid of the result,
         // create a full-fledge (with contribution array) gift object with it
@@ -369,17 +369,17 @@ const double LOBBY_LIMIT = 10.0;
         ([[searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)) {
         return [self getAllGiftFromSource:source];
     }
+    
     // Now the main dish
     // get all gift from source (inner join), take only those that match search string (another inner join).
-    NSString * query = @"SELECT g.* FROM gift g \
-    INNER JOIN giving gv ON gv.gid = g.gid \
-    INNER JOIN source s ON s.sid = gv.sid \
-    INNER JOIN gift_index i on i.docid = g.gid \
+    NSString * query = @"SELECT g.* FROM source s \
+    INNER JOIN giving g ON s.sid = g.sid \
+    INNER JOIN source_index i on i.docid = g.sid \
     WHERE s.sid = ? AND I.content match ?";
     
     // prep the argument
     NSString * matching = [searchString stringByAppendingString:@"*"];
-    FMResultSet * resultSet = [self.db executeQuery:query,[NSNumber numberWithInt:source.idno], matching];
+    FMResultSet * resultSet = [self.db executeQuery:query,source.idno, matching];
     
     NSMutableArray * gifts = [[NSMutableArray alloc] init];
     while ([resultSet next]) {
@@ -395,7 +395,7 @@ const double LOBBY_LIMIT = 10.0;
 // Yep, it's a complete gift with contribution list (a gift paid by many people
 -(Gift *)getGiftWithId:(NSUInteger)gid {
     NSString * query = @"SELECT * FROM gift WHERE gid = ?";
-    FMResultSet * results = [self.db executeQuery:query,[NSNumber numberWithInt:gid]];
+    FMResultSet * results = [self.db executeQuery:query,gid];
     if ([results next]) {
         Gift * g = [self processGiftResultWithoutContributionList:results];
         [self updateGiftContributionForGift:g];
@@ -406,7 +406,7 @@ const double LOBBY_LIMIT = 10.0;
 
 - (void)updateGiftContributionForGift:(Gift *)g {
     NSString * query = @"SELECT * FROM giving WHERE gid = ?";
-    FMResultSet * results = [self.db executeQuery:query,[NSNumber numberWithInt:g.idno]];
+    FMResultSet * results = [self.db executeQuery:query,g.idno];
     while ([results next]) {
         NSUInteger sourceId = [results intForColumn:@"sid"];
         float gValue = [results doubleForColumn:@"value"];

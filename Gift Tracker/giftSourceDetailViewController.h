@@ -28,6 +28,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *email;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 
+
+-(IBAction)saveEdit:(UIStoryboardSegue *)segue;
+-(IBAction)cancelEdit:(UIStoryboardSegue *)segue;
+
 - (IBAction)deleteButton:(UIButton *)sender;
 
 @end
